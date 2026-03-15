@@ -170,13 +170,13 @@ body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:
     <div style="text-align:center;margin-bottom:24px;">
       <div class="login-logo">ARIA · 新智汇</div>
       <div class="login-title">SOP Workspace</div>
-      <div class="login-sub" id="login-sub-text">Select your role and enter the password</div>
+      <div class="login-sub" id="loginSubText">Select your role and enter the password</div>
     </div>
     <div class="role-grid" id="roleGrid"></div>
     <div class="pw-wrap"><input type="password" id="pwInput" placeholder="Enter role password..." /></div>
-    <button class="login-btn" id="login-btn-el" onclick="doLogin()">Sign In</button>
+    <button class="login-btn" id="loginBtnEl" onclick="doLogin()">Sign In</button>
     <div class="login-err" id="loginErr"></div>
-    <div class="login-hint" id="login-hint-text">Contact your PM for role passwords.<br>Default passwords: [role]2024 (e.g. pm2024)</div>
+    <div class="login-hint" id="loginHintText">Contact your PM for role passwords.<br>Default passwords: [role]2024 (e.g. pm2024)</div>
   </div>
 </div>
 
@@ -206,8 +206,8 @@ body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:
     <div class="field"><label>Checklist items (one per line)</label><textarea id="mCl" placeholder="Step 1&#10;Step 2&#10;Step 3" style="min-height:80px;"></textarea></div>
     <div class="field"><label>Key deliverables (comma separated)</label><input id="mDel" placeholder="e.g. Project Charter v1.0, Risk Register" /></div>
     <div class="modal-actions">
-      <button class="modal-btn modal-cancel" onclick="closeSopModal()">Cancel</button>
-      <button class="modal-btn modal-save" onclick="saveSopModal()">Save Step</button>
+      <button class="modal-btn modal-cancel" id="modal-cancel-btn" onclick="closeSopModal()">Cancel</button>
+      <button class="modal-btn modal-save" id="modal-save-btn" onclick="saveSopModal()">Save Step</button>
     </div>
   </div>
 </div>
@@ -313,6 +313,106 @@ function ckGet(rid,sid,ci){try{return JSON.parse(localStorage.getItem('aria_ck_'
 function ckSet(rid,sid,ci,v){const k='aria_ck_'+rid+'_'+sid;let o={};try{o=JSON.parse(localStorage.getItem(k)||'{}');}catch(e){}o[ci]=v;localStorage.setItem(k,JSON.stringify(o));}
 
 // LOGIN
+const I18N={
+  en:{
+    langBtn:'中文', brandSub:'SOP Workspace · Pilot M1–M2',
+    totalLabel:'Total', overallLabel:'Overall',
+    signOut:'Sign out', signIn:'Sign In',
+    selectRole:'Select your role and enter the password',
+    contactHint:'Contact your PM for role passwords.',
+    defaultPwHint:'Default passwords: [role]2024 (e.g. pm2024)',
+    selectRoleErr:'Please select a role first.',
+    wrongPw:'Incorrect password. Please try again.',
+    agentSuffix:' Agent',
+    addSopStep:'+ Add SOP Step', addSection:'+ Add Section',
+    viewMode:'View mode — sign in as {role} to add, edit, or delete',
+    sopSteps:'SOP steps', completed:'Completed', inProgress:'In progress', toDo:'To do',
+    completion:'completion',
+    recentActivity:'Recent activity', hide:'Hide', show:'Show', clear:'Clear',
+    checklist:'Checklist', tasks:'Tasks', notes:'Notes', deliverables:'Deliverables',
+    done:'Done', wip:'In progress', todo:'To do',
+    noTasks:'No tasks yet.', noNotes:'No notes yet.',
+    addTask:'Add task...', assign:'Assign...', add:'Add',
+    addNote:'Add a note or comment...',
+    editStep:'✏ Edit', deleteStep:'🗑 Delete', reset:'Reset',
+    overallProgress:'Overall', steps:'Steps',
+    sopModalAddTitle:'Add SOP Step', sopModalEditTitle:'Edit SOP Step',
+    mTitleLabel:'Step title *', mTitlePh:'e.g. Define project charter and scope',
+    mSecLabel:'Section', mWhoLabel:'Responsible parties', mWhoPh:'e.g. PM + BA + Client Sponsor',
+    mDescLabel:'Description', mDescPh:'What does this step involve?',
+    mClLabel:'Checklist items (one per line)', mClPh:'Step 1
+Step 2
+Step 3',
+    mDelLabel:'Key deliverables (comma separated)', mDelPh:'e.g. Project Charter v1.0, Risk Register',
+    cancel:'Cancel', saveStep:'Save Step',
+    secModalTitle:'Add New Section', secNameLabel:'Section name *', secNamePh:'e.g. Risk Management',
+    noSopSteps:'No SOP steps yet.', clickToAdd:' Click "+ Add SOP Step" to get started.',
+    deleteTaskConfirm:'Delete this task?', deleteNoteConfirm:'Delete this note?',
+    deleteSopConfirm:'Delete this SOP step? This cannot be undone.',
+    clearLogConfirm:'Clear all activity log? This cannot be undone.',
+    actLogCleared:'Activity log cleared',
+    savedAt:'Last saved:',
+    helpChecklist:'Standard steps that define how this SOP should be executed. Tick each one as you complete it.',
+    helpTasks:'Project-specific action items. Add tasks with an assignee to track who is doing what.',
+    helpNotes:'Discussion records and decision logs. Capture why decisions were made — your BOI audit trail.',
+    helpDeliverables:'Key documents this step should produce — for client sign-off and BOI evidence.',
+    helpAddStep:'Add a new SOP step — fill in title, section, checklist, and deliverables.',
+    helpAddSection:'Add a new section to organise your SOP steps. e.g. Planning, Execution, Closure.',
+    helpActivity:'A log of all actions taken by team members. You can hide or clear this log.',
+    painLabel:'Pain points:',
+    deliveryRoles:'Delivery Roles',
+  },
+  zh:{
+    langBtn:'EN', brandSub:'SOP 协作工作区 · 试点 M1–M2',
+    totalLabel:'总计', overallLabel:'整体完成',
+    signOut:'退出登录', signIn:'登录',
+    selectRole:'选择你的角色并输入密码',
+    contactHint:'请联系 PM 获取各角色密码。',
+    defaultPwHint:'默认密码：[角色]2024（例如 pm2024）',
+    selectRoleErr:'请先选择一个角色。',
+    wrongPw:'密码错误，请重试。',
+    agentSuffix:' 智能体',
+    addSopStep:'+ 新增 SOP 步骤', addSection:'+ 新增板块',
+    viewMode:'只读模式 — 以 {role} 身份登录才可编辑',
+    sopSteps:'SOP 步骤', completed:'已完成', inProgress:'进行中', toDo:'待处理',
+    completion:'完成度',
+    recentActivity:'最近操作', hide:'隐藏', show:'显示', clear:'清空',
+    checklist:'操作清单', tasks:'任务', notes:'备注', deliverables:'交付物',
+    done:'已完成', wip:'进行中', todo:'待处理',
+    noTasks:'暂无任务。', noNotes:'暂无备注。',
+    addTask:'添加任务...', assign:'指派给...', add:'添加',
+    addNote:'添加备注或评论...',
+    editStep:'✏ 编辑', deleteStep:'🗑 删除', reset:'重置',
+    overallProgress:'整体', steps:'步骤',
+    sopModalAddTitle:'新增 SOP 步骤', sopModalEditTitle:'编辑 SOP 步骤',
+    mTitleLabel:'步骤标题 *', mTitlePh:'例如：制定项目章程和范围',
+    mSecLabel:'所属板块', mWhoLabel:'负责方', mWhoPh:'例如：PM + BA + 客户主管',
+    mDescLabel:'描述', mDescPh:'这个步骤涉及什么内容？',
+    mClLabel:'清单项（每行一条）', mClPh:'步骤一
+步骤二
+步骤三',
+    mDelLabel:'关键交付物（逗号分隔）', mDelPh:'例如：项目章程 v1.0，风险登记册',
+    cancel:'取消', saveStep:'保存步骤',
+    secModalTitle:'新增板块', secNameLabel:'板块名称 *', secNamePh:'例如：风险管理',
+    noSopSteps:'暂无 SOP 步骤。', clickToAdd:'点击"+ 新增 SOP 步骤"开始创建。',
+    deleteTaskConfirm:'确认删除此任务？', deleteNoteConfirm:'确认删除此备注？',
+    deleteSopConfirm:'确认删除此 SOP 步骤？删除后无法恢复。',
+    clearLogConfirm:'确认清空所有操作记录？此操作无法撤销。',
+    actLogCleared:'操作记录已清空',
+    savedAt:'最后保存：',
+    helpChecklist:'标准操作规范，定义此步骤应如何执行。逐项勾选代表完成。',
+    helpTasks:'当前项目的具体待办事项，可指定负责人追踪执行进度。',
+    helpNotes:'讨论记录和决策备注。记录"为什么这么做"，作为 BOI 审计证据链。',
+    helpDeliverables:'此步骤应产出的关键文件或成果，用于客户签字确认和 BOI 合规证明。',
+    helpAddStep:'新增一个 SOP 步骤，填写标题、板块、清单项和关键交付物。',
+    helpAddSection:'新增一个板块，用于分类组织 SOP 步骤。例如：规划、执行、收尾。',
+    helpActivity:'团队成员的所有操作日志，记录谁添加、编辑或删除了什么。可隐藏或清空。',
+    painLabel:'痛点：',
+    deliveryRoles:'交付角色',
+  }
+};
+let LANG=localStorage.getItem('aria_lang')||'en';
+function T(k,vars){let s=(I18N[LANG]||I18N.en)[k]||k;if(vars)Object.keys(vars).forEach(v=>{s=s.replace('{'+v+'}',vars[v]);});return s;}
 (function buildLogin(){
   document.getElementById('roleGrid').innerHTML=ROLES.map(r=>`<div class="role-opt" id="ro_${r.id}" onclick="selRole('${r.id}')"><div class="ro-icon">${r.icon}</div><div class="ro-name">${r.name}</div><div class="ro-full">${r.full}</div></div>`).join('');
   document.getElementById('pwInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
@@ -423,116 +523,16 @@ function toggleAct(rid){const v=localStorage.getItem('aria_act_vis')!=='0';local
 function clearLog(rid){if(!confirm(T('clearLogConfirm')))return;localStorage.removeItem('aria_log');alog(T('actLogCleared'));rAll(rid);}
 
 // ── i18n ──
-const I18N={
-  en:{
-    langBtn:'中文', brandSub:'SOP Workspace · Pilot M1–M2',
-    totalLabel:'Total', overallLabel:'Overall',
-    signOut:'Sign out', signIn:'Sign In',
-    selectRole:'Select your role and enter the password',
-    contactHint:'Contact your PM for role passwords.',
-    defaultPwHint:'Default passwords: [role]2024 (e.g. pm2024)',
-    selectRoleErr:'Please select a role first.',
-    wrongPw:'Incorrect password. Please try again.',
-    agentSuffix:' Agent',
-    addSopStep:'+ Add SOP Step', addSection:'+ Add Section',
-    viewMode:'View mode — sign in as {role} to add, edit, or delete',
-    sopSteps:'SOP steps', completed:'Completed', inProgress:'In progress', toDo:'To do',
-    completion:'completion',
-    recentActivity:'Recent activity', hide:'Hide', show:'Show', clear:'Clear',
-    checklist:'Checklist', tasks:'Tasks', notes:'Notes', deliverables:'Deliverables',
-    done:'Done', wip:'In progress', todo:'To do',
-    noTasks:'No tasks yet.', noNotes:'No notes yet.',
-    addTask:'Add task...', assign:'Assign...', add:'Add',
-    addNote:'Add a note or comment...',
-    editStep:'✏ Edit', deleteStep:'🗑 Delete', reset:'Reset',
-    overallProgress:'Overall', steps:'Steps',
-    sopModalAddTitle:'Add SOP Step', sopModalEditTitle:'Edit SOP Step',
-    mTitleLabel:'Step title *', mTitlePh:'e.g. Define project charter and scope',
-    mSecLabel:'Section', mWhoLabel:'Responsible parties', mWhoPh:'e.g. PM + BA + Client Sponsor',
-    mDescLabel:'Description', mDescPh:'What does this step involve?',
-    mClLabel:'Checklist items (one per line)', mClPh:'Step 1
-Step 2
-Step 3',
-    mDelLabel:'Key deliverables (comma separated)', mDelPh:'e.g. Project Charter v1.0, Risk Register',
-    cancel:'Cancel', saveStep:'Save Step',
-    secModalTitle:'Add New Section', secNameLabel:'Section name *', secNamePh:'e.g. Risk Management',
-    noSopSteps:'No SOP steps yet.', clickToAdd:' Click "+ Add SOP Step" to get started.',
-    deleteTaskConfirm:'Delete this task?', deleteNoteConfirm:'Delete this note?',
-    deleteSopConfirm:'Delete this SOP step? This cannot be undone.',
-    clearLogConfirm:'Clear all activity log? This cannot be undone.',
-    actLogCleared:'Activity log cleared',
-    savedAt:'Last saved:',
-    helpChecklist:'${T('helpChecklist')}',
-    helpTasks:'${T('helpTasks')}',
-    helpNotes:'${T('helpNotes')}',
-    helpDeliverables:'${T('helpDeliverables')}',
-    helpAddStep:'${T('helpAddStep')}',
-    helpAddSection:'${T('helpAddSection')}',
-    helpActivity:'A log of all actions taken by team members. You can hide or clear this log.',
-    painLabel:'Pain points:',
-    deliveryRoles:'Delivery Roles',
-  },
-  zh:{
-    langBtn:'EN', brandSub:'SOP 协作工作区 · 试点 M1–M2',
-    totalLabel:'总计', overallLabel:'整体完成',
-    signOut:'退出登录', signIn:'登录',
-    selectRole:'选择你的角色并输入密码',
-    contactHint:'请联系 PM 获取各角色密码。',
-    defaultPwHint:'默认密码：[角色]2024（例如 pm2024）',
-    selectRoleErr:'请先选择一个角色。',
-    wrongPw:'密码错误，请重试。',
-    agentSuffix:' 智能体',
-    addSopStep:'+ 新增 SOP 步骤', addSection:'+ 新增板块',
-    viewMode:'只读模式 — 以 {role} 身份登录才可编辑',
-    sopSteps:'SOP 步骤', completed:'已完成', inProgress:'进行中', toDo:'待处理',
-    completion:'完成度',
-    recentActivity:'最近操作', hide:'隐藏', show:'显示', clear:'清空',
-    checklist:'操作清单', tasks:'任务', notes:'备注', deliverables:'交付物',
-    done:'已完成', wip:'进行中', todo:'待处理',
-    noTasks:'暂无任务。', noNotes:'暂无备注。',
-    addTask:'添加任务...', assign:'指派给...', add:'添加',
-    addNote:'添加备注或评论...',
-    editStep:'✏ 编辑', deleteStep:'🗑 删除', reset:'重置',
-    overallProgress:'整体', steps:'步骤',
-    sopModalAddTitle:'新增 SOP 步骤', sopModalEditTitle:'编辑 SOP 步骤',
-    mTitleLabel:'步骤标题 *', mTitlePh:'例如：制定项目章程和范围',
-    mSecLabel:'所属板块', mWhoLabel:'负责方', mWhoPh:'例如：PM + BA + 客户主管',
-    mDescLabel:'描述', mDescPh:'这个步骤涉及什么内容？',
-    mClLabel:'清单项（每行一条）', mClPh:'步骤一
-步骤二
-步骤三',
-    mDelLabel:'关键交付物（逗号分隔）', mDelPh:'例如：项目章程 v1.0，风险登记册',
-    cancel:'取消', saveStep:'保存步骤',
-    secModalTitle:'新增板块', secNameLabel:'板块名称 *', secNamePh:'例如：风险管理',
-    noSopSteps:'暂无 SOP 步骤。', clickToAdd:'点击"+ 新增 SOP 步骤"开始创建。',
-    deleteTaskConfirm:'确认删除此任务？', deleteNoteConfirm:'确认删除此备注？',
-    deleteSopConfirm:'确认删除此 SOP 步骤？删除后无法恢复。',
-    clearLogConfirm:'确认清空所有操作记录？此操作无法撤销。',
-    actLogCleared:'操作记录已清空',
-    savedAt:'最后保存：',
-    helpChecklist:'标准操作规范，定义此步骤应如何执行。逐项勾选代表完成。',
-    helpTasks:'当前项目的具体待办事项，可指定负责人追踪执行进度。',
-    helpNotes:'讨论记录和决策备注。记录"为什么这么做"，作为 BOI 审计证据链。',
-    helpDeliverables:'此步骤应产出的关键文件或成果，用于客户签字确认和 BOI 合规证明。',
-    helpAddStep:'新增一个 SOP 步骤，填写标题、板块、清单项和关键交付物。',
-    helpAddSection:'新增一个板块，用于分类组织 SOP 步骤。例如：规划、执行、收尾。',
-    helpActivity:'团队成员的所有操作日志，记录谁添加、编辑或删除了什么。可隐藏或清空。',
-    painLabel:'痛点：',
-    deliveryRoles:'交付角色',
-  }
-};
-let LANG=localStorage.getItem('aria_lang')||'en';
-function T(k,vars){let s=(I18N[LANG]||I18N.en)[k]||k;if(vars)Object.keys(vars).forEach(v=>{s=s.replace('{'+v+'}',vars[v]);});return s;}
 function toggleLang(){LANG=LANG==='en'?'zh':'en';localStorage.setItem('aria_lang',LANG);applyLangStatic();if(CUR)rAll(CUR.id);}
 function applyLangStatic(){
   const btn=document.getElementById('langBtn');if(btn)btn.textContent=T('langBtn');
   const lo=document.getElementById('logoutBtn');if(lo)lo.textContent=T('signOut');
   const sub=document.querySelector('.brand span');if(sub)sub.textContent=T('brandSub');
   const si=document.querySelector('.login-btn');if(si)si.textContent=T('signIn');
-  const ls=document.getElementById('login-sub-text');if(ls)ls.textContent=T('selectRole');
-  const hints=document.getElementById('login-hint-text');
+  const ls=document.getElementById('loginSubText');if(ls)ls.textContent=T('selectRole');
+  const hints=document.getElementById('loginHintText');
   if(hints)hints.innerHTML=T('contactHint')+'<br>'+T('defaultPwHint');
-  const lbe=document.getElementById('login-btn-el');if(lbe)lbe.textContent=T('signIn');
+  const lbe=document.getElementById('loginBtnEl');if(lbe)lbe.textContent=T('signIn');
   // modal labels
   const ml=['mTitleLabel','mSecLabel','mWhoLabel','mDescLabel','mClLabel','mDelLabel'];
   const mids=['lbl-title','lbl-sec','lbl-who','lbl-desc','lbl-cl','lbl-del'];
