@@ -1,1 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARIA · 新智汇 — SOP Workspace</title>
+<style>
+:root{
+  --navy:#0A1F44;--gold:#C9A84C;
+  --pm:#0A1F44;--pm-l:#E8EDF5;
+  --ba:#1A3A6B;--ba-l:#EEF2FB;
+  --ita:#1B4F72;--ita-l:#E8F4FC;
+  --fta:#4A235A;--fta-l:#F5EEF8;
+  --dev:#1D4ED8;--dev-l:#EFF6FF;
+  --qa:#065F46;--qa-l:#ECFDF5;
+  --ma:#7C2D12;--ma-l:#FFF7ED;
+  --bg:#F4F6FB;--surface:#fff;--border:#E2E8F0;
+  --text:#1A202C;--muted:#718096;--subtle:#A0AEC0;
+  --green:#22C55E;--amber:#F59E0B;
+  --info-bg:#EBF8FF;--info-b:#90CDF4;--info-t:#2C5282;
+  --warn-bg:#FFFBEB;--warn-b:#FCD34D;--warn-t:#92400E;
+  --suc-bg:#F0FFF4;--suc-b:#9AE6B4;--suc-t:#276749;
+  --reg-bg:#FFF5F5;--reg-b:#FEB2B2;--reg-t:#742A2A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+.topbar{background:var(--navy);padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.25);height:54px;}
+.brand{color:var(--gold);font-size:15px;font-weight:700;}
+.brand span{color:rgba(255,255,255,.4);font-weight:400;font-size:12px;margin-left:10px;}
+.ts-row{display:flex;gap:20px;}
+.ts{color:rgba(255,255,255,.5);font-size:12px;}
+.ts strong{color:#fff;}
+.layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 54px);}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;padding-bottom:20px;}
+.sb-head{padding:14px 16px 6px;font-size:10px;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.6px;}
+.role-btn{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;transition:all .12s;border-left:3px solid transparent;position:relative;}
+.role-btn:hover{background:var(--bg);}
+.role-btn.active{background:var(--bg);}
+.rb-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.rb-info{flex:1;min-width:0;}
+.rb-name{font-size:12px;font-weight:600;color:var(--text);}
+.rb-pct{font-size:11px;color:var(--muted);}
+.rb-bar{height:2px;background:var(--border);border-radius:1px;margin-top:3px;}
+.rb-fill{height:100%;border-radius:1px;transition:width .3s;}
+.sb-div{height:1px;background:var(--border);margin:8px 14px;}
+.sb-sum{padding:10px 14px;}
+.sb-sum-title{font-size:10px;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.sc{background:var(--bg);border-radius:7px;padding:8px;text-align:center;}
+.sc-n{font-size:18px;font-weight:700;}
+.sc-l{font-size:10px;color:var(--muted);margin-top:1px;}
+.main{padding:22px;overflow-y:auto;}
+.rh{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:18px;margin-bottom:14px;}
+.rh-av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.rh-name{font-size:18px;font-weight:700;margin-bottom:3px;}
+.rh-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:8px;}
+.stk{display:flex;gap:4px;flex-wrap:wrap;}
+.st{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:600;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;}
+.stat-n{font-size:22px;font-weight:700;}
+.stat-l{font-size:10px;color:var(--muted);margin-top:2px;}
+.pb{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:14px;}
+.pb-m{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:6px;}
+.pb-t{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.pb-f{height:100%;border-radius:3px;transition:width .4s;}
+.pain{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;align-items:center;}
+.pl{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;margin-right:4px;}
+.pt{font-size:11px;padding:2px 8px;border-radius:5px;background:var(--warn-bg);color:var(--warn-t);border:1px solid var(--warn-b);}
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.stab{font-size:11px;padding:4px 11px;border-radius:20px;color:#fff;font-weight:500;}
+.cards{display:flex;flex-direction:column;gap:8px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .15s;}
+.card:hover{box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.ch{display:flex;align-items:flex-start;gap:10px;padding:12px 15px;cursor:pointer;}
+.sn{min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px;}
+.si{flex:1;}
+.st2{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.4;}
+.sw{font-size:11px;color:var(--muted);}
+.sr{display:flex;align-items:center;gap:7px;flex-shrink:0;margin-top:2px;}
+.badge{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:500;white-space:nowrap;}
+.b-done{background:#D1FAE5;color:#065F46;}
+.b-wip{background:#FEF3C7;color:#92400E;}
+.b-todo{background:#F1F5F9;color:var(--muted);}
+.chev{font-size:11px;color:var(--subtle);transition:transform .15s;display:inline-block;}
+.chev.op{transform:rotate(90deg);}
+.cb{display:none;padding:0 15px 14px 49px;border-top:1px solid var(--border);}
+.cb.op{display:block;padding-top:12px;}
+.bl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.bt{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:12px;}
+.cl{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.ci{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);line-height:1.5;}
+.ckb{width:15px;height:15px;border:1.5px solid var(--border);border-radius:3px;flex-shrink:0;margin-top:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .12s;}
+.ckb.on{background:var(--green);border-color:var(--green);color:#fff;}
+.dr{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;}
+.del{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:500;}
+.tip{border-radius:7px;padding:8px 12px;font-size:12px;line-height:1.55;margin-bottom:7px;}
+.tip strong{font-weight:600;}
+.t-aria{background:var(--info-bg);border:1px solid var(--info-b);color:var(--info-t);}
+.t-bank{background:var(--reg-bg);border:1px solid var(--reg-b);color:var(--reg-t);}
+.t-col{background:var(--suc-bg);border:1px solid var(--suc-b);color:var(--suc-t);}
+.t-reg{background:var(--warn-bg);border:1px solid var(--warn-b);color:var(--warn-t);}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.btn{font-size:12px;padding:5px 11px;border-radius:7px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-weight:500;transition:all .12s;}
+.btn:hover{background:var(--bg);}
+.btn-wip{background:var(--amber);color:#fff;border-color:var(--amber);}
+.btn-ai{background:var(--navy);color:var(--gold);border-color:var(--navy);margin-left:auto;}
+@media(max-width:700px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--border);}.stats{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">ARIA · 新智汇 <span>SOP Collaboration Workspace · All Roles · Pilot M1–M2</span></div>
+  <div class="ts-row">
+    <div class="ts">Total <strong id="ts-done">0</strong>/<strong id="ts-tot">0</strong></div>
+    <div class="ts">Overall <strong id="ts-pct">0</strong>% complete</div>
+    <div class="ts"><strong id="ts-online">7</strong> roles active</div>
+  </div>
+</div>
+<div class="layout">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main" id="main"></div>
+</div>
+<script>
+const R=[
+{id:'pm',icon:'📋',name:'PM',full:'Project Manager',color:'#0A1F44',light:'#E8EDF5',
+ sub:'Owns end-to-end project delivery — planning, risk, stakeholder management, and team coordination across all 7 roles.',
+ stack:[{l:'Project Planning',b:'#0A1F44',f:'#fff'},{l:'Risk Management',b:'#E8EDF5',f:'#0A1F44'},{l:'Stakeholder Mgmt',b:'#E8EDF5',f:'#0A1F44'},{l:'Sprint Governance',b:'#E8EDF5',f:'#0A1F44'}],
+ pain:['Manual status reporting','Risk blind spots','Stakeholder misalignment','Missed milestones','Scope creep','Resource conflicts'],
+ sops:[
+  {sec:'Initiation',t:'Project charter and scope definition',w:'PM + BA + Client Sponsor',s:'done',
+   desc:'Formally authorise ARIA by creating a project charter that documents objectives, scope, stakeholders, timeline, and budget — the single source of truth before any work begins.',
+   cl:['Define business objectives and project success criteria clearly','Document in-scope and explicitly out-of-scope deliverables','Identify all stakeholders with roles, influence levels, and communication needs','Agree on high-level budget, timeline, and known constraints','Obtain formal sign-off from client sponsor before any role begins work','Publish charter to ARIA workspace and notify all 7 role owners'],
+   del:['Project Charter v1.0','Stakeholder Register'],
+   aria:'ARIA PM Agent auto-generates the charter template from stakeholder inputs and flags any missing mandatory fields before sign-off.',
+   col:'BA provides business context for scope. All role owners must acknowledge the charter before their SOP work begins. No role starts delivery without a signed charter.',tip:''},
+  {sec:'Initiation',t:'Delivery team RACI and workspace onboarding',w:'PM',s:'done',
+   desc:'Assemble the full 7-role delivery team and define clear accountability for every deliverable using a RACI matrix — eliminating confusion and duplication across roles.',
+   cl:['Confirm team roster: PM, BA, Integration TA, Functional TA, Dev, Tester, MA','Create RACI matrix for all project deliverables and milestones','Set up ARIA SOP workspace and grant role-based access to each member','Run team kickoff meeting — align on project goals, working norms, and communication cadence','Assign each role owner to their SOP workspace section with clear ownership','Track onboarding completion — all 7 roles must acknowledge before sprint 1'],
+   del:['RACI Matrix','Team Onboarding Completion Log'],
+   aria:'ARIA PM Agent sends automated onboarding tasks to each role upon team setup and tracks acknowledgement status in real time.',
+   col:'Each role owner is responsible for completing their SOP section by end of pilot phase M1–M2.',tip:''},
+  {sec:'Planning',t:'Master project plan and milestone schedule',w:'PM + Integration TA',s:'wip',
+   desc:'Build the full 12-month delivery plan covering pilot (M1–M2), build phases (M3–M10), and continuous rollout (M11–M12+) with milestones, sprint cadences, and critical path.',
+   cl:['Break all phases into work packages and tasks with owners and estimated effort','Identify task dependencies and critical path across all 7 roles','Set milestone dates: POC agent, BOI submission, UAT, go-live, and continuous rollout start','Baseline plan as v1.0 and lock in ARIA before sprint 1 begins','Share with all stakeholders for formal acknowledgement','Review and rebaseline at end of each project phase'],
+   del:['Master Project Plan v1.0','Milestone Schedule','Critical Path Diagram'],
+   aria:'ARIA PM Agent auto-generates Gantt chart from task list, flags overloaded resources, and predicts delivery risk from team velocity data.',
+   col:'Integration TA provides technical estimates for infrastructure tasks. Functional TA provides estimates for FSD and banking design. BA provides requirements effort estimates.',tip:''},
+  {sec:'Planning',t:'Risk register and mitigation planning',w:'PM + All Roles',s:'wip',
+   desc:'Proactively identify all project risks across technical, delivery, people, regulatory, and compliance dimensions before delivery begins.',
+   cl:['Run risk brainstorm workshop with all 7 role owners at project kickoff','Log each risk: category, likelihood (H/M/L), impact (H/M/L), owner, and mitigation action','Define contingency plan for each High-rated risk','Set biweekly risk review cadence — update scores at every session','Escalate High risks to steering committee immediately — do not wait for next report cycle','Include BOI compliance risks and Thai PDPA data risks explicitly in register'],
+   del:['Risk Register v1.0','Risk Mitigation Plan'],
+   aria:'ARIA PM Agent continuously monitors project signals (velocity drops, blockers, scope changes) and auto-updates risk scores in real time.',
+   col:'Each role owner must identify and flag risks in their domain. PM consolidates, assigns owners, and escalates as needed.',tip:''},
+  {sec:'Execution',t:'Sprint planning and backlog management',w:'PM + BA + Dev',s:'todo',
+   desc:'Run structured 2-week sprints. Each sprint starts with a planning session where the team selects and commits to backlog items based on priority and team capacity.',
+   cl:['Maintain a groomed, prioritised product backlog at all times','Run sprint planning every 2 weeks — maximum 2 hours per session','Confirm team capacity before committing sprint scope — never over-commit','Define one clear sprint goal per sprint that aligns to a project milestone','Ensure all user stories entering a sprint have accepted acceptance criteria','Update ARIA with sprint plan before Day 1 — all roles must see their tasks'],
+   del:['Sprint Plan (each sprint)','Updated Product Backlog'],
+   aria:'ARIA PM Agent suggests optimal sprint load from team velocity history and flags stories lacking acceptance criteria before sprint lock.',
+   col:'BA owns backlog grooming and story readiness. Dev team provides technical estimates. PM facilitates and confirms sprint commitment across all roles.',tip:''},
+  {sec:'Monitoring',t:'Weekly status reporting and RAG dashboard',w:'PM',s:'todo',
+   desc:'Maintain full project transparency through weekly RAG status reports covering progress, risks, decisions needed, and next-week priorities — distributed to all stakeholders every Monday.',
+   cl:['Update ARIA project dashboard every Monday morning before 9am','Report covers: RAG status, % complete, key wins this week, blockers, risks, decisions needed','Send report to client and steering committee by EOD Monday','Hold weekly 30-min team standup — Wednesday recommended for mid-sprint visibility','Escalate any RED items same day — never wait for the weekly report cycle','Archive all reports in ARIA document library for BOI compliance audit trail'],
+   del:['Weekly Status Report','ARIA Project Dashboard'],
+   aria:'ARIA PM Agent auto-drafts the weekly status report from sprint data, task completions, and risk log — PM reviews and publishes in one click.',
+   col:'All role owners must update their task status in ARIA by Sunday EOD to feed into Monday morning report generation.',tip:''},
+  {sec:'Monitoring',t:'Change request management',w:'PM + BA + Client',s:'todo',
+   desc:'Any change to scope, budget, or timeline must follow a formal process. No undocumented changes — this protects the team, the client, and the BOI compliance record.',
+   cl:['Use ARIA change request form for all scope changes — verbal agreements are not accepted','BA assesses impact on requirements, backlog, and RTM within 2 business days','Integration TA and Functional TA assess technical and functional impact','PM compiles full impact analysis: scope, schedule, budget, resource','Present impact analysis to client — only proceed after written client approval','Update plan, backlog, and RACI to reflect all approved changes'],
+   del:['Change Request Register','Impact Assessment Report'],
+   aria:'ARIA PM Agent auto-calculates schedule and budget impact of any change request and generates a formatted impact report for client review within minutes.',
+   col:'BA, Integration TA, and Functional TA each provide domain-specific impact within 2 business days. PM owns client communication and final approval tracking.',tip:''},
+  {sec:'Governance',t:'Steering committee meeting preparation and cadence',w:'PM',s:'todo',
+   desc:'Run monthly steering committee meetings with senior stakeholders covering project health, key decisions, escalated risks, and upcoming milestones.',
+   cl:['Prepare steering deck: health dashboard, milestone status, key risks, decisions required','Circulate agenda 3 days before meeting to all steering committee members','Pre-brief key stakeholders on any sensitive items before the meeting','Document all decisions and action items with owners and due dates during the meeting','Distribute meeting minutes within 24 hours of meeting close','Track all action items to closure before next steering committee meeting'],
+   del:['Steering Committee Deck','Meeting Minutes','Action Item Tracker'],
+   aria:'ARIA PM Agent auto-populates the steering deck from live project data and generates an executive summary in both English and Chinese (新智汇 branding).',
+   col:'All role owners provide input for their section of the steering deck 3 days before the meeting. PM synthesises and presents.',tip:''},
+  {sec:'Closure',t:'Project retrospective and lessons learned',w:'PM + All Roles',s:'todo',
+   desc:'Conduct a structured retrospective at project end to capture what worked, what to improve, and what to stop. Feed insights back into ARIA SOPs for future projects.',
+   cl:['Run retrospective within 1 week of project go-live — all 7 roles must participate','Capture structured feedback: What went well / What to improve / Stop doing / Action items','Document all lessons learned in ARIA knowledge base with role tags','Each role owner updates their SOP section based on retrospective findings','Share retrospective summary with BOI as evidence of continuous improvement','Celebrate team success — acknowledge individual and team contributions formally'],
+   del:['Retrospective Report','Updated SOP Register','Lessons Learned Log'],
+   aria:'ARIA PM Agent auto-generates a lessons learned summary from sprint retrospectives, risk log, and change request history across the full project lifecycle.',
+   col:'All 7 roles must contribute to the retrospective. SOP updates must be completed within 2 weeks of the retrospective.',tip:''}
+ ]},
+{id:'ba',icon:'📝',name:'BA',full:'Business Analyst',color:'#1A3A6B',light:'#EEF2FB',
+ sub:'Translates banking business needs into clear requirements, user stories, and acceptance criteria. The bridge between what the client wants and what the team builds.',
+ stack:[{l:'Requirements',b:'#1A3A6B',f:'#fff'},{l:'User Stories',b:'#EEF2FB',f:'#1A3A6B'},{l:'Process Mapping',b:'#EEF2FB',f:'#1A3A6B'},{l:'UAT Coordination',b:'#EEF2FB',f:'#1A3A6B'}],
+ pain:['Ambiguous requirements','Scope creep','Missing acceptance criteria','Stakeholder disagreements','Poor traceability','Late requirement changes'],
+ sops:[
+  {sec:'Discovery',t:'Stakeholder discovery and requirements elicitation',w:'BA + PM + Client Stakeholders',s:'done',
+   desc:'Conduct structured discovery sessions to understand the banking business problem, current-state pain points, and desired outcomes. The foundation of all requirements work.',
+   cl:['Identify all stakeholder groups: business owners, end users, IT, compliance, finance, operations','Prepare discovery interview guide — 15–20 targeted questions per stakeholder type','Run 1-on-1 stakeholder interviews (60 min each) with notes and recordings','Facilitate group workshop for cross-functional or conflicting requirements','Document current-state pain points with supporting evidence and data where available','Summarise findings in a discovery report shared with PM and Functional TA within 5 business days'],
+   del:['Discovery Report','Stakeholder Interview Notes','Current-State Process Maps'],
+   aria:'ARIA BA Agent transcribes and analyses interview recordings, clusters requirement themes, and auto-drafts the discovery report with key insights highlighted.',
+   col:'PM coordinates stakeholder scheduling and access. Functional TA reviews discovery findings for banking domain accuracy before the report is finalised.',tip:''},
+  {sec:'Discovery',t:'As-is process mapping and gap analysis',w:'BA + End Users + Functional TA',s:'done',
+   desc:'Document the current delivery process for each of the 7 roles. Identify inefficiencies, manual steps, and capability gaps that ARIA and the banking system will resolve.',
+   cl:['Map current-state processes for all 7 delivery roles in consistent format','Quantify pain points: time spent, error rates, rework frequency per process step','Identify manual steps that are candidates for ARIA AI agent automation','Document to-be processes showing ARIA agent improvements per role','Validate gap analysis with each role owner — written confirmation required','Present findings to steering committee for alignment before FSD work begins'],
+   del:['As-Is Process Maps (7 roles)','Gap Analysis Report','To-Be Process Maps'],
+   aria:'ARIA BA Agent generates process flow diagrams from structured inputs and highlights steps where AI automation delivers the highest ROI across each role.',
+   col:'Functional TA validates banking-domain accuracy in all process maps. Integration TA reviews to-be processes to confirm technical feasibility.',tip:''},
+  {sec:'Requirements',t:'Business requirements document (BRD) creation',w:'BA + PM',s:'wip',
+   desc:'Consolidate all discovered requirements into a formal BRD defining what the banking system must do from a business perspective — not how. Every requirement must be specific and testable.',
+   cl:['Organise requirements by banking capability and functional area','Apply SMART criteria: every requirement must be Specific, Measurable, Achievable, Relevant, Testable','Classify requirements: mandatory (Must Have) vs desirable (Should/Could Have)','Assign unique IDs: REQ-ACC-001, REQ-LOAN-001, REQ-REG-001, etc. for full traceability','Include non-functional requirements: performance, availability, security, compliance','Circulate to all stakeholders for review — 5 business day review window','Obtain formal sign-off before Functional TA begins FSD work'],
+   del:['Business Requirements Document (BRD)','Requirements Priority Matrix'],
+   aria:'ARIA BA Agent validates each requirement against SMART criteria, detects duplicates and contradictions, and scores requirement clarity before publication.',
+   col:'Functional TA reviews all banking-domain requirements for accuracy and completeness. PM confirms requirements align with project scope, timeline, and budget.',tip:''},
+  {sec:'Requirements',t:'Requirements traceability matrix (RTM) setup and maintenance',w:'BA',s:'wip',
+   desc:'Build and maintain an RTM linking every requirement to its FSD section, user story, test case, and deployment status. Essential for BOI audit evidence and ensuring nothing is missed.',
+   cl:['Create RTM structure: Req ID, Description, FSD Reference, User Story, Test Case ID, Status, Sign-off','Populate RTM from BRD — every requirement must have a row before FSD starts','Link each FSD section to its parent BRD requirement','Link each user story to its parent requirement ID','Link each test case to its user story','Update RTM status weekly as delivery progresses and submit as BOI reporting evidence'],
+   del:['Requirements Traceability Matrix (RTM)'],
+   aria:'ARIA BA Agent auto-maintains the RTM in real time — linking new user stories and test cases to requirements as they are created across the ARIA workspace.',
+   col:'Functional TA links FSD sections to RTM. Tester links test cases. PM reviews RTM coverage at sprint reviews to confirm scope delivery.',tip:''},
+  {sec:'User Stories',t:'User story writing and product backlog grooming',w:'BA + PM + Dev',s:'todo',
+   desc:'Translate business requirements into well-structured, independently deliverable user stories. Every story must be testable and small enough to complete within a single sprint.',
+   cl:['Format: "As a [banking role], I want [capability] so that [business benefit]"','Every story must have 3–5 clear, measurable acceptance criteria before entering the backlog','Apply INVEST criteria: Independent, Negotiable, Valuable, Estimable, Small, Testable','Conduct biweekly backlog grooming with PM and Dev team — estimate story points collaboratively','Prioritise using MoSCoW: Must Have / Should Have / Could Have / Won\'t Have this phase','No story enters a sprint without signed-off acceptance criteria — enforce this gate'],
+   del:['Product Backlog','User Story Library','Story Point Estimates'],
+   aria:'ARIA BA Agent drafts user stories from BRD requirements, suggests acceptance criteria, and flags stories that are too large or lack testability before sprint entry.',
+   col:'Dev team estimates story points during grooming. PM prioritises based on business value and dependencies. Tester reviews acceptance criteria for testability before sprint.',tip:''},
+  {sec:'User Stories',t:'Acceptance criteria definition and UAT coordination',w:'BA + Tester + Client',s:'todo',
+   desc:'Define precise, testable acceptance criteria for every user story and coordinate UAT with business users. Acceptance criteria form the formal contract between the delivery team and the client.',
+   cl:['Write criteria in Given / When / Then (Gherkin) format for clarity','Each criterion must be independently verifiable by a non-technical business user','Review all criteria with Tester to confirm they can be tested and automated where possible','Review criteria with client to confirm business intent is fully and accurately captured','No story may go live without client-signed acceptance criteria on record in ARIA','Plan UAT window with client — minimum 2 weeks, business users only (not IT team members)'],
+   del:['Acceptance Criteria Library','UAT Test Script','UAT Sign-off Record'],
+   aria:'ARIA BA Agent converts acceptance criteria into formal Gherkin format and shares directly with ARIA Tester Agent for automated test case generation.',
+   col:'Tester owns UAT execution and defect logging. BA provides domain support during UAT — answering clarification questions and classifying defects as spec gaps or build errors.',tip:''},
+  {sec:'Change Control',t:'Requirement change assessment and documentation',w:'BA + PM',s:'todo',
+   desc:'When a client requests a change, BA conducts a formal impact assessment before any commitment is made. No requirement change proceeds without written client approval.',
+   cl:['All change requests must be received via ARIA change request form — no verbal changes accepted','Assess impact on: existing BRD requirements, user stories, RTM, acceptance criteria, and test cases','Estimate additional BA effort to document and validate the change properly','Coordinate with PM for schedule and budget impact assessment','Coordinate with Functional TA for banking domain impact (rules, interfaces, data)','Document full impact in change response within 3 business days — update BRD and RTM only after written approval'],
+   del:['Change Impact Assessment','Updated BRD v2.0','Updated RTM'],
+   aria:'ARIA BA Agent auto-traces the impact of a proposed change across all linked user stories, test cases, and RTM entries — producing an instant dependency impact report.',
+   col:'Functional TA provides banking domain impact assessment for changes affecting financial rules or regulatory requirements. PM approves the final change response before it is sent to the client.',tip:''}
+ ]},
+{id:'ita',icon:'🔌',name:'Integration TA',full:'Integration Technical Architect',color:'#1B4F72',light:'#E8F4FC',
+ sub:'Owns the technical integration layer — AWS infrastructure, OceanBase, Bedrock AgentCore runtime, APIs, event pipelines, security, and IaC. Ensures the platform is connected, scalable, and BOI-compliant.',
+ stack:[{l:'AWS',b:'#FF9900',f:'#7C3800'},{l:'Bedrock AgentCore',b:'#232F3E',f:'#fff'},{l:'OceanBase',b:'#006EFF',f:'#fff'},{l:'API Gateway',b:'#E8F4FC',f:'#1B4F72'},{l:'CDK / IaC',b:'#E8F4FC',f:'#1B4F72'}],
+ pain:['Integration conflicts between systems','Undocumented API contracts','Infrastructure drift','Data pipeline failures','Security and PDPA gaps','Missing audit trails'],
+ sops:[
+  {sec:'Architecture',t:'Platform component diagram and integration blueprint',w:'Integration TA + PM + Functional TA',s:'wip',
+   desc:'Design the ARIA platform integration architecture — all AWS services, OceanBase, Bedrock AgentCore, and external tools in one master blueprint. Every other role builds from this diagram.',
+   cl:['Define platform layers: Presentation / Agent Orchestration / Integration / Data / Infrastructure','Map all AWS services per layer: EKS, Bedrock AgentCore, API Gateway, S3, EventBridge, CloudWatch','Document all external integrations: Jira, GitHub, Slack, client core banking systems','Design agent-to-agent communication patterns: sync REST vs async EventBridge per use case','Map all data flows: origin → transform → persist → consume per agent role','Identify and eliminate all single points of failure in the integration layer','Publish diagram v1.0 — 5 business day review window with all roles before baselining'],
+   del:['Component Diagram v1.0','Data Flow Diagram','Integration Map'],
+   aria:'ARIA Integration TA Agent auto-generates draft component diagrams from stack inputs and flags missing connections, circular dependencies, or single points of failure.',
+   col:'Functional TA must sign off on the component diagram before it is baselined. No coding begins until both TAs agree on the integration blueprint.',tip:'Deploy in AWS Thailand Region (ap-southeast-7) for BOI data residency compliance.'},
+  {sec:'Architecture',t:'Tech stack decision record (TDR) register',w:'Integration TA',s:'wip',
+   desc:'Document every major technology choice with rationale, alternatives considered, and trade-offs. TDRs prevent tech debt, enable team onboarding, and provide BOI evidence of engineering governance.',
+   cl:['Create TDR template: Decision / Context / Options Considered / Rationale / Consequences','Write TDR for: AWS (cloud provider), OceanBase (database), Bedrock AgentCore (agent framework)','Write TDR for: EKS vs ECS, REST vs GraphQL, Claude Sonnet as primary LLM model','Assign unique IDs (TDR-001, TDR-002...) and link each to the architecture diagram','Store all TDRs in ARIA knowledge base — no TDRs in personal documents ever','Review all TDRs with Dev team before implementation of any component begins'],
+   del:['TDR Register','Architecture Decision Log'],
+   aria:'ARIA Integration TA Agent alerts the team whenever a new implementation deviates from a documented TDR — preventing undocumented architectural drift.',
+   col:'Functional TA contributes TDRs for LLM model selection and agent framework choices. Both TAs must agree on shared TDRs before they are published.',tip:'Key TDR: OceanBase on AWS Marketplace eliminates separate OLTP + OLAP + vector DB — reducing infrastructure complexity and cost by 40–60%.'},
+  {sec:'API & Data',t:'API design standards and OpenAPI 3.0 specification',w:'Integration TA + Dev Lead',s:'todo',
+   desc:'Define the API layer connecting all ARIA agents, OceanBase, AWS services, and external tools. A clean API contract prevents integration failures and enables parallel Dev and QA work from Day 1.',
+   cl:['Define API standards: RESTful with OpenAPI 3.0 specification — mandatory for all endpoints','Design API Gateway routing: one route group per agent (/pm/ /ba/ /ita/ /fta/ /dev/ /qa/ /ma/)','Set versioning strategy: URI versioning (/v1/ /v2/) with a formal deprecation policy','Authentication: JWT via AWS Cognito — mandatory on every endpoint, no exceptions ever','Configure rate limiting per agent endpoint to protect against overload','Set up API mocking (AWS API Gateway mock) for parallel Dev and QA work before backend is ready','Publish complete OpenAPI spec to ARIA workspace before Dev writes a single line of code'],
+   del:['OpenAPI 3.0 Specification','API Gateway Configuration','Authentication Design Doc'],
+   aria:'ARIA Integration TA Agent validates all API specs against OpenAPI 3.0 schema and flags any endpoint missing authentication, rate limits, or error response definitions.',
+   col:'Functional TA reviews all agent-specific API contracts. Dev team cannot begin coding until OpenAPI spec is approved by both TAs and signed off by PM.',tip:'Use AWS API Gateway HTTP API for lower latency and cost. Enable AWS WAF for injection protection on all endpoints.'},
+  {sec:'API & Data',t:'OceanBase schema design and CDC pipeline',w:'Integration TA + Dev Lead',s:'todo',
+   desc:'Design the OceanBase schema covering relational banking project data, documents, and vector embeddings for agent RAG memory. CDC keeps Bedrock Knowledge Bases in sync with live data.',
+   cl:['Design core schema: projects, tasks, deliverables, agents, audit_log, users, sop_library, banking_rules','Design vector store schema: embedding_store (agent_id, project_id, content, embedding, metadata)','Define multi-tenant strategy: one OceanBase tenant per client banking project for data isolation','Design CDC pipeline: OceanBase binlog → Kafka (Amazon MSK) → AWS Glue → Bedrock Knowledge Base','Define indexing strategy for top agent query patterns (project_id, agent_id, created_at, rule_id)','Set up OceanBase multi-replica with RPO=0 across minimum 2 AWS Availability Zones','Document all table definitions with column descriptions — Functional TA sign-off required before coding'],
+   del:['OceanBase Schema v1.0','CDC Pipeline Design','DR Configuration'],
+   aria:'ARIA Integration TA Agent generates optimised SQL templates for the top 20 agent query patterns and benchmarks them to confirm sub-100ms p95 response times.',
+   col:'Functional TA defines what data each agent needs and the knowledge base schema structure. Integration TA translates those requirements into the physical OceanBase schema and query design.',tip:'OceanBase native vector SQL (ORDER BY vector_distance) eliminates the need for a separate vector database — reducing infrastructure cost and operational complexity.'},
+  {sec:'AgentCore',t:'Bedrock AgentCore runtime and gateway configuration',w:'Integration TA + Dev Lead',s:'todo',
+   desc:'Configure the Bedrock AgentCore framework — the technical backbone connecting all 7 ARIA agents. Integration TA owns infrastructure and connectivity; Functional TA owns agent logic running inside it.',
+   cl:['Configure AgentCore Runtime: container specs, memory limits, timeout policies per agent type','Set up AgentCore Gateway: MCP tool definitions for Jira, GitHub, Slack, OceanBase, core banking APIs','Configure AgentCore Identity: OAuth2 scopes per agent — PM agent cannot invoke Dev agent tools','Set up AgentCore Memory: S3-backed episodic memory + OceanBase long-term vector memory','Enable AgentCore Observability: step-level CloudWatch trace logging for every agent invocation','Design supervisor agent routing logic: which user input routes to which specialist agent','Build agent health check endpoints and auto-restart policy for production resilience'],
+   del:['AgentCore Config Specification','Tool Definition Library','Supervisor Routing Design'],
+   aria:'ARIA Integration TA Agent monitors AgentCore invocation metrics and auto-scales agent compute based on queue depth — alerting on cold start latency spikes before users are impacted.',
+   col:'Integration TA builds the AgentCore plumbing and connectivity. Functional TA writes agent instructions, tool selection logic, and prompt templates that run inside that framework. Daily sync required during build phase.',tip:'AgentCore Gateway supports MCP protocol natively. Design tools as composable MCP servers — one per external system — for reuse across all 7 agents.'},
+  {sec:'Security & IaC',t:'Security architecture, PDPA framework and IaC setup',w:'Integration TA + BA + Legal',s:'todo',
+   desc:'Design end-to-end security and define all infrastructure as code. Thai PDPA compliance is mandatory for BOI. IaC ensures all environments are reproducible, version-controlled, and auditable.',
+   cl:['Run STRIDE threat modelling session with Functional TA and Dev Lead','Network security: VPC, private subnets, NACLs, Security Groups, WAF on API Gateway','Encryption: AES-256 at rest (AWS KMS), TLS 1.3 in transit — absolute zero exceptions','AWS Secrets Manager for all credentials — zero hardcoded secrets anywhere in any codebase','PDPA framework: all Thai client data stays within AWS Thailand Region; build DSAR workflow into platform','Select IaC tool: AWS CDK (TypeScript) for native Bedrock and AgentCore support','Code all infrastructure in CDK: VPC, EKS, API Gateway, Bedrock, OceanBase, EventBridge, S3','Enforce Checkov security scan on every CDK pull request — block merge on any critical finding'],
+   del:['Security Architecture Document','PDPA Compliance Framework','AWS CDK Codebase v1.0'],
+   aria:'ARIA Integration TA Agent runs daily IaC drift detection comparing deployed AWS resources against CDK definitions — alerting immediately if any manual console changes are detected.',
+   col:'Functional TA classifies which data each banking agent accesses. Integration TA applies the correct encryption, access controls, and PDPA data tagging at the infrastructure level based on that classification.',tip:'Enable: GuardDuty (threat detection), Security Hub (centralised findings), Macie (PII detection in S3), CloudTrail (BOI audit log), Config (continuous compliance), Inspector (EKS vulnerability scanning).'},
+  {sec:'Performance & DR',t:'NFR definition, load testing and disaster recovery plan',w:'Integration TA + PM + Functional TA',s:'todo',
+   desc:'Define measurable non-functional requirements, validate through load testing, and design a disaster recovery plan. These form part of the client SLA and BOI compliance evidence package.',
+   cl:['Define NFRs: API p95 < 2s, agent invocation p95 < 5s, platform availability 99.9%, RTO < 1hr, RPO < 15min','Design load test plan: baseline, stress, spike, and endurance scenarios using k6 or Gatling','Run load tests on staging before every major release — both TAs must sign off the test report','Multi-AZ active design: EKS node groups and OceanBase replicas across minimum 2 Availability Zones','AWS Backup for OceanBase with cross-region replication to Singapore region (ap-southeast-1)','Build and test DR runbook: step-by-step failover procedures with timing benchmarks','CloudWatch Synthetics for 24/7 uptime monitoring with PagerDuty on-call alerting'],
+   del:['NFR Specification Document','Load Test Report','Disaster Recovery Runbook'],
+   aria:'ARIA Integration TA Agent runs synthetic monitoring probes every 5 minutes across all agent endpoints and auto-creates Jira incidents if any NFR threshold is breached.',
+   col:'Functional TA validates that banking agent business logic performs within NFR thresholds during load testing. Both TAs must sign off the load test report before any client SLA is formally committed.',tip:'OceanBase multi-replica delivers RPO=0 natively. AWS Backup cross-region ensures RTO < 1 hour for worst-case failure scenarios.'}
+ ]},
+{id:'fta',icon:'🏦',name:'Functional TA',full:'Functional TA — Banking IT',color:'#4A235A',light:'#F5EEF8',
+ sub:'Translates banking business requirements into detailed technical functional specifications. Owns the functional design of core banking modules, financial business rules, regulatory compliance mapping, and interface specifications.',
+ stack:[{l:'Core Banking',b:'#4A235A',f:'#fff'},{l:'BOT Compliance',b:'#145A32',f:'#fff'},{l:'FSD Design',b:'#F5EEF8',f:'#4A235A'},{l:'Business Rules',b:'#F5EEF8',f:'#4A235A'},{l:'Data Mapping',b:'#F5EEF8',f:'#4A235A'},{l:'SIT/UAT Support',b:'#F5EEF8',f:'#4A235A'}],
+ pain:['Ambiguous financial business rules','Incomplete interface specifications','Regulatory gaps found late in delivery','Data mapping errors','Dev building wrong financial logic','UAT failures from undocumented edge cases'],
+ sops:[
+  {sec:'Functional Specs',t:'Functional specification document (FSD) creation',w:'Functional TA + BA + Bank Product Owner',s:'wip',
+   desc:'Translate BA business requirements into detailed functional specifications the Dev team can build from — field by field, rule by rule, screen by screen. The FSD is the primary technical delivery document.',
+   cl:['Receive formally signed-off BRD from BA — never begin FSD without an approved BRD','Break each business requirement into functional components: screens, workflows, validations, calculations','Specify every data field: name, type, length, mandatory/optional, default value, and validation rule','Document all business rules as explicit conditional logic: IF [condition] THEN [action] ELSE [action]','Define error messages and exception handling for every validation scenario','Map each FSD section back to its originating BRD requirement ID for full traceability','Circulate FSD to BA, Dev Lead, and Bank Product Owner — 5-business-day review and approval cycle'],
+   del:['Functional Specification Document (FSD)','Business Rules Catalogue','Screen Wireframes'],
+   aria:'ARIA Functional TA Agent cross-checks each FSD section against the BRD and flags any requirement that lacks a corresponding functional specification before the document goes for review.',
+   col:'BA provides business context and requirement intent. Integration TA reviews FSD to confirm specified interfaces and data structures are technically achievable in the integration layer.',tip:'FSD must align with the bank\'s existing core banking system data model (e.g. Temenos T24, Finacle, FCC). Validate all field names and data types against the CBS data dictionary before publishing.'},
+  {sec:'Functional Specs',t:'Financial business rules documentation and validation',w:'Functional TA + Bank Product Owner + Compliance',s:'wip',
+   desc:'Document all financial rules governing banking product behaviour — interest calculations, fee logic, limit management, and accrual methods. A single error in financial rules causes direct financial loss and regulatory exposure.',
+   cl:['Document interest calculation rules: accrual method, compounding frequency, day count convention (ACT/365, ACT/360)','Define fee rules: transaction fees, service charges, penalty fees, waiver conditions per customer segment','Define credit and account limit rules: utilisation calculation, overlimit handling, review trigger conditions','Document rounding rules: every financial calculation must specify method (round half-up, truncate) and decimal precision','Define processing cut-off times: intraday, end-of-day, and month-end rules per transaction and product type','Validate all rules with Bank Product Owner and Compliance team — written sign-off is mandatory','Build a rule test matrix: every rule requires at least 3 test scenarios including positive, negative, and boundary edge cases'],
+   del:['Financial Business Rules Catalogue','Calculation Specification','Rule Test Matrix'],
+   aria:'ARIA Functional TA Agent maintains a searchable rules catalogue and immediately alerts the team when a new FSD entry introduces a rule conflicting with a previously documented rule.',
+   col:'Compliance must review and formally sign off all financial rules before they are handed to Dev. Any rule touching AML thresholds or regulatory limits requires a Compliance approval record stored in ARIA.',tip:'Thai BOT context: all interest calculation rules must comply with BOT Notification SorNorSor 21/2562. Fee structures must align with BOT consumer protection regulations on fee transparency and disclosure.'},
+  {sec:'Core Banking Design',t:'Core banking module functional design',w:'Functional TA + Integration TA + Dev Lead',s:'todo',
+   desc:'Design the functional behaviour of each core banking module being delivered — accounts, deposits, loans, and general ledger. Every module design must cover all product types, transaction flows, parameter configurations, and edge cases.',
+   cl:['Define account module: account types, opening workflow, dormancy rules, closure and write-off process','Design deposit module: term deposit, savings, and current account product parameter configurations','Design loan module: origination workflow, disbursement, repayment schedule calculation, prepayment, and restructuring','Define GL mapping: every transaction type must have a fully defined GL entry with Dr/Cr accounts and cost centres','Design end-of-day (EOD) and month-end (EOM) batch processing flows for each module','Document all module-to-module interfaces: accounts ↔ GL, loans ↔ interest accrual, deposits ↔ GL','Define all configurable product parameter tables that drive module behaviour'],
+   del:['Module Functional Design (per module)','GL Mapping Table','EOD/EOM Process Flow','Parameter Configuration Table'],
+   aria:'ARIA Functional TA Agent maintains the GL mapping table and alerts the team whenever a new transaction type is added to the FSD without a corresponding and balanced GL entry.',
+   col:'Integration TA designs the technical interface layer between modules. Functional TA defines what data flows, in what format, and under what trigger conditions. Both must agree on interface specs before Dev builds module connectors.',tip:'GL entries must comply with Bank of Thailand reporting requirements and Thai GAAP / IFRS as applicable. Any new GL accounts must be approved by the bank\'s Finance and Accounting team before being added to the FSD.'},
+  {sec:'Regulatory',t:'Regulatory compliance requirement mapping',w:'Functional TA + Compliance + Legal',s:'todo',
+   desc:'Map all applicable Thai and international banking regulations to specific system functional requirements. Regulatory gaps discovered late in delivery cause project delays, costly rework, and potential BOT licence risk.',
+   cl:['Identify all applicable regulations: BOT prudential requirements, PDPA, AML/CFT Act, FATCA, CRS, IFRS 9, NCB reporting','Map each regulation to the specific system function it affects — produce a Regulation-to-Function matrix','Document KYC/CDD functional requirements: customer verification workflow, document capture, sanctions screening','Specify AML transaction monitoring rules: threshold amounts, suspicious pattern definitions, STR filing workflow','Document NCB reporting requirements: data fields, file format, submission frequency, and error handling','Specify BOT regulatory reporting feeds: balance sheet, liquidity ratio, capital adequacy data elements','Define data retention rules per regulation with minimum retention periods for all record and log types','Obtain formal Compliance and Legal sign-off on all regulatory mappings before FSD is finalised'],
+   del:['Regulation-to-Function Matrix','KYC/CDD Functional Specification','AML Monitoring Rules Document','Regulatory Reporting Specification'],
+   aria:'ARIA Functional TA Agent maintains the Regulation-to-Function matrix and automatically flags any FSD update that could impact a regulatory requirement — ensuring compliance is continuously checked, not only at go-live.',
+   col:'Compliance team owns the regulatory interpretation. Functional TA translates regulatory obligations into precise system functional specifications. Integration TA ensures the technical architecture supports all required data capture and reporting flows.',tip:'PDPA (B.E. 2562): every FSD section handling personal data must document the legal processing basis. This is also required as evidence in the BOI application. BOT IT risk management circular NorTorChor 74/2552 must be reviewed for system risk requirements.'},
+  {sec:'Interface & Data',t:'System interface specification design',w:'Functional TA + Integration TA + Dev Lead',s:'todo',
+   desc:'Define the functional specifications for all interfaces between banking systems — what data is exchanged, in what format, under what trigger, and with what error handling. Clear interface specs prevent the most common and costly integration failures in banking IT delivery.',
+   cl:['Identify all system interfaces: CBS ↔ digital channels, CBS ↔ risk system, CBS ↔ GL, CBS ↔ regulatory reporting','For each interface: define trigger event, message format (ISO 20022, proprietary XML/JSON), frequency, and direction','Specify all mandatory and optional fields per interface with data type, length, and format constraints','Define error response codes and business-level error handling for every interface','Document synchronous vs asynchronous interface patterns based on business timing requirements','Define reconciliation mechanism for each interface: how both sides confirm successful data exchange','Create interface test cases: happy path, rejection scenarios, timeout handling, and duplicate detection'],
+   del:['Interface Specification Register','Message Format Catalogue','Interface Test Case Library'],
+   aria:'ARIA Functional TA Agent tracks interface spec versions and alerts when a change to one interface spec creates downstream impact on connected interfaces — preventing cascading specification inconsistencies.',
+   col:'Functional TA defines the functional interface contract: what data, when, why, and in what format. Integration TA implements the technical connectivity: how the message physically moves between systems. Both must sign off the spec before Dev begins.',tip:'Banking interfaces commonly follow ISO 20022 (modern interbank), ISO 8583 (ATM/POS legacy), or proprietary formats (Temenos T24 OFS, Finacle UBS). Document the exact field mapping between the bank\'s internal data model and each external standard.'},
+  {sec:'Interface & Data',t:'Data mapping and migration specification',w:'Functional TA + BA + Dev Lead',s:'todo',
+   desc:'For any core banking migration, define field-level data mapping between source and target systems. A single unmapped field in a loan account or customer record can cause a regulatory breach or financial reconciliation failure.',
+   cl:['Produce a complete source-to-target data mapping document: every field mapped with transformation rule','Define data cleansing rules: how to handle nulls, invalid values, duplicates, and legacy product codes in source data','Document data enrichment requirements: fields that must be populated from external lookups or calculated values','Define migration sequence: customers → accounts → loans → transactions → collateral → history — in dependency order','Specify balance and position reconciliation rules: migrated balances must match source system to the cent','Document data cutover approach: parallel run, phased migration, or big-bang — with rollback criteria and decision owner','Design migration validation test scenarios: volume tests, balance reconciliation tests, and exception handling'],
+   del:['Data Mapping Specification','Data Cleansing Rules','Migration Sequence Plan','Balance Reconciliation Specification'],
+   aria:'ARIA Functional TA Agent validates data mapping completeness — confirming every source field has either a defined target mapping or an explicit documented exclusion decision with business justification.',
+   col:'Dev team owns migration tooling and execution. Functional TA owns the business rules governing data transformation and the acceptance criteria for migration sign-off. Both must agree on what "done" means for every data entity before cutover.',tip:'Banking data migration is zero-tolerance for errors. Customer balances, interest accruals, and transaction history must migrate with 100% accuracy. Finance and Compliance must sign off the migration reconciliation report before production cutover is approved.'},
+  {sec:'Testing Support',t:'Functional test scenario design and SIT/UAT support',w:'Functional TA + Tester + Bank Users',s:'todo',
+   desc:'Design comprehensive functional test scenarios for all banking business rules and edge cases. Functional TA supports the Tester by providing deep banking domain expertise — not executing tests, but ensuring the test design covers everything.',
+   cl:['Review Tester\'s test strategy and confirm full functional coverage against FSD and business rules catalogue','Design functional test scenarios for every banking rule: minimum 3 scenarios each (positive, negative, boundary)','Create end-to-end banking flow scenarios: onboarding → account opening → transaction → statement → period close','Document test data requirements: exact account balances, customer types, product configurations needed per scenario','Design financial calculation verification tests: interest, fees, GL entries — with pre-calculated expected amounts','Review SIT defects and classify each: functional spec gap, development error, or test data issue','Support UAT by training bank user testers on business test scenarios and acceptance criteria interpretation'],
+   del:['Functional Test Scenario Library','Test Data Specification','SIT Defect Classification Log','UAT Sign-off Checklist'],
+   aria:'ARIA Functional TA Agent maps each test scenario to its originating FSD requirement and business rule — providing a full coverage matrix that shows exactly which requirements are tested and which have gaps.',
+   col:'Tester owns test execution, defect logging, and test summary reports. Functional TA provides domain expertise for test scenario design and defect triage. Both must agree on defect classification before raising to PM.',tip:'Mandatory banking test categories: interest calculation verification (to 6 decimal places), GL posting verification (every transaction must produce balanced entries), regulatory threshold tests, and month-end processing scenarios.'}
+ ]},
+{id:'dev',icon:'💻',name:'Developer',full:'Software Developer',color:'#1D4ED8',light:'#EFF6FF',
+ sub:'Builds, codes, and delivers all ARIA platform features and banking system integrations. Responsible for code quality, CI/CD, and technical implementation across all layers of the platform.',
+ stack:[{l:'AWS EKS',b:'#FF9900',f:'#7C3800'},{l:'Bedrock SDK',b:'#232F3E',f:'#fff'},{l:'OceanBase',b:'#006EFF',f:'#fff'},{l:'TypeScript/Python',b:'#EFF6FF',f:'#1D4ED8'},{l:'CDK',b:'#EFF6FF',f:'#1D4ED8'},{l:'CI/CD',b:'#EFF6FF',f:'#1D4ED8'}],
+ pain:['Unclear or incomplete technical specs','Code review bottlenecks','Inconsistent dev environments','Missing acceptance criteria','Undocumented APIs','Deployment failures in production'],
+ sops:[
+  {sec:'Dev Setup',t:'Development environment and branching strategy',w:'Dev Lead + Integration TA',s:'done',
+   desc:'Establish a consistent, reproducible development environment and define the Git branching strategy that all developers follow. Inconsistent environments are one of the leading causes of "works on my machine" failures.',
+   cl:['Configure AWS dev environment: EKS local proxy, OceanBase dev tenant, Bedrock sandbox credentials','Define Git branching strategy: main / develop / feature/* / hotfix/* / release/*','All feature branches must branch from develop — never directly from main','Pull requests to develop require: passing CI checks + minimum 1 peer code review','Pull requests to main require: passing CI + integration tests + Tech Lead approval','Document environment setup in ARIA — any new developer must be productive within 1 day using the guide'],
+   del:['Dev Environment Setup Guide','Branching Strategy Document','Local Dev Runbook'],
+   aria:'ARIA Dev Agent automatically validates that new branches follow the naming convention and alerts if a developer attempts to commit directly to main or develop without a pull request.',
+   col:'Integration TA provides AWS environment access and OceanBase credentials. Dev Lead owns branching policy enforcement and pull request standards.',tip:''},
+  {sec:'Dev Setup',t:'Coding standards, linting, and code review checklist',w:'Dev Lead',s:'done',
+   desc:'Define the coding standards, automated linting rules, and code review checklist that every developer follows. Consistent code quality reduces bugs, accelerates onboarding, and reduces technical debt.',
+   cl:['Define language-specific coding standards: TypeScript (Node.js) and Python for Lambda/agent code','Configure ESLint (TypeScript) and Pylint (Python) with project-specific rule sets in the repo','Set up Prettier for automatic code formatting — enforce on every commit via pre-commit hook','Define code review checklist: logic correctness, error handling, test coverage, security, performance, documentation','No pull request merges without checklist completion — enforce as PR template in GitHub','Set up SonarQube or AWS CodeGuru for automated code quality and security vulnerability scanning'],
+   del:['Coding Standards Document','Linting Config Files (.eslintrc, .pylintrc)','Code Review Checklist'],
+   aria:'ARIA Dev Agent reviews pull requests and flags code that violates defined standards — highlighting missing error handling, hardcoded values, or security anti-patterns before human reviewer sees the PR.',
+   col:'Integration TA reviews PRs for infrastructure-as-code changes. Functional TA reviews PRs implementing banking business logic to confirm rules are correctly translated from the FSD.',tip:''},
+  {sec:'Build & Test',t:'CI/CD pipeline setup and automated testing',w:'Dev Lead + Integration TA',s:'todo',
+   desc:'Build a robust CI/CD pipeline that automatically tests, validates, and deploys every code change. A well-designed pipeline catches problems in minutes rather than days.',
+   cl:['Set up GitHub Actions for CI: triggered on every PR to develop and main branches','CI pipeline stages: lint → unit tests → integration tests → security scan (Checkov) → build','Set up AWS CodePipeline for CD: dev deploy on develop merge, staging deploy on release branch, prod on main','Define test coverage requirements: minimum 80% unit test coverage across all new code','Integrate automated Bedrock agent evaluation into CI: run quality benchmarks on every agent prompt change','Configure deployment gates: dev → staging (automatic), staging → prod (manual approval from Integration TA + PM)','Set up automated rollback: if prod error rate exceeds 1% within 10 minutes of deploy, auto-rollback triggered'],
+   del:['CI/CD Pipeline Configuration','GitHub Actions Workflows','Deployment Gates Policy'],
+   aria:'ARIA Dev Agent monitors CI/CD pipeline health and notifies the team of pipeline failures within 2 minutes — with a root cause summary to accelerate fix time.',
+   col:'Integration TA owns the CDK infrastructure pipeline. Dev Lead owns the application CI/CD pipeline. Tester defines automated acceptance test suites integrated into the CD pipeline.',tip:''},
+  {sec:'Build & Test',t:'Unit test and integration test standards',w:'Dev Lead',s:'todo',
+   desc:'Define test standards that ensure every feature is properly validated before it reaches staging or production. Tests are not optional — untested code does not merge.',
+   cl:['Unit tests are mandatory for all business logic functions — no exceptions for banking calculation code','Use Jest (TypeScript) and Pytest (Python) as standard test frameworks across the project','Each unit test must be: fast (< 500ms), isolated (no external dependencies), and deterministic (same result always)','Integration tests must cover all API endpoints and all OceanBase query patterns','Write tests before fixing any bug — the test must reproduce the bug before the fix is committed (TDD for bugs)','Test coverage reports generated on every CI run — PRs that drop coverage below 80% are blocked from merging'],
+   del:['Unit Test Library','Integration Test Suite','Coverage Report Standards'],
+   aria:'ARIA Dev Agent generates unit test scaffolding for new functions based on the function signature and FSD business rules — reducing test writing time by 60% without reducing coverage quality.',
+   col:'Functional TA reviews test scenarios for banking calculation tests to confirm expected values are correctly derived from the FSD and business rules catalogue.',tip:''},
+  {sec:'Implementation',t:'ARIA agent implementation using Bedrock SDK',w:'Dev + Integration TA + Functional TA',s:'todo',
+   desc:'Implement all 7 ARIA agents using Amazon Bedrock SDK and AgentCore framework. Each agent must faithfully implement the functional design specified by Functional TA within the technical framework designed by Integration TA.',
+   cl:['Implement AgentCore Runtime containers for all 7 agents following Integration TA\'s config spec','Integrate system prompts from Functional TA\'s prompt library — no hardcoded prompts in source code','Implement all MCP tool definitions from Integration TA\'s tool catalogue — one tool server per external system','Connect AgentCore Memory to OceanBase vector store using Integration TA\'s schema','Implement supervisor agent routing logic following Integration TA\'s routing design','Validate each agent against Functional TA\'s evaluation dataset — must pass quality benchmarks before merging','Write integration tests for every agent invocation path including edge cases and error scenarios'],
+   del:['Agent Implementation Code (7 agents)','Tool Server Implementations','Agent Integration Tests'],
+   aria:'ARIA Dev Agent assists with Bedrock SDK boilerplate generation and flags any agent implementation that deviates from the AgentCore config spec or system prompt library.',
+   col:'Integration TA provides AgentCore config spec and tool definitions. Functional TA provides system prompts and evaluation benchmarks. Dev implements and validates against both. Any deviation from specs requires both TAs to approve.',tip:''},
+  {sec:'Implementation',t:'Banking module and interface implementation',w:'Dev + Functional TA',s:'todo',
+   desc:'Implement all core banking module functions, GL posting logic, and system interfaces as specified in the Functional TA\'s FSD. Banking financial logic must be implemented with exact precision — no rounding shortcuts.',
+   cl:['Implement all banking business rules exactly as specified in FSD — no interpretation or improvisation','Financial calculations must use Decimal arithmetic — never floating point for monetary values','Implement all GL posting logic per the GL mapping table: every transaction must produce balanced entries','Implement all system interfaces per the Interface Specification Register: correct format, field mapping, error codes','All banking logic implementations must reference the FSD rule ID in the code comment for traceability','Submit every financial calculation implementation for Functional TA review before merging','Implement all regulatory reporting data extraction feeds per the Regulatory Reporting Specification'],
+   del:['Banking Module Code','Interface Adapter Implementations','GL Posting Engine','Regulatory Data Feeds'],
+   aria:'ARIA Dev Agent cross-checks implemented financial calculation logic against the FSD rule catalogue and flags any implementation where computed output deviates from the documented expected result.',
+   col:'Functional TA reviews all financial logic PRs. Any discrepancy between implementation and FSD is a blocking defect — Dev must fix and Functional TA must re-approve before merge to develop.',tip:''},
+  {sec:'Release',t:'Release management and production deployment checklist',w:'Dev Lead + Integration TA + PM',s:'todo',
+   desc:'Define a structured release process that ensures every production deployment is planned, tested, approved, and reversible. Unplanned banking system changes in production cause regulatory and reputational risk.',
+   cl:['Create release checklist: all tests passed, Functional TA sign-off, Integration TA sign-off, PM approval','Release notes must be produced for every production release — including database schema changes','Deployment window must be agreed with client and bank operations team (typically weekend or off-peak)','Perform dry-run deployment to staging within 48 hours of planned production release','Production deployment requires: dual approval (Integration TA + PM) before pipeline is triggered','Post-deployment smoke test checklist: verify all agent endpoints, all banking module APIs, and GL posting','Rollback decision authority: Integration TA can trigger rollback without PM approval if production error rate exceeds threshold'],
+   del:['Release Checklist','Release Notes Template','Post-Deployment Smoke Test Script'],
+   aria:'ARIA Dev Agent auto-generates release notes from merged PR descriptions and Jira tickets since last release — saving 2–3 hours of manual documentation per release.',
+   col:'Integration TA owns infrastructure deployment. Dev Lead owns application deployment. PM provides business and client communication. Functional TA verifies banking functionality post-deployment.',tip:''}
+ ]},
+{id:'qa',icon:'🧪',name:'Tester',full:'QA Tester',color:'#065F46',light:'#ECFDF5',
+ sub:'Owns quality assurance across the full ARIA platform — test strategy, test case design, SIT execution, automation, defect management, UAT coordination, and final sign-off.',
+ stack:[{l:'Test Strategy',b:'#065F46',f:'#fff'},{l:'SIT / UAT',b:'#ECFDF5',f:'#065F46'},{l:'Automation',b:'#ECFDF5',f:'#065F46'},{l:'Defect Management',b:'#ECFDF5',f:'#065F46'}],
+ pain:['Late defect discovery','Manual test case creation bottleneck','Regression gaps between releases','Missing edge case coverage','UAT failures from poor test design','No defect severity standards'],
+ sops:[
+  {sec:'Test Strategy',t:'Test strategy and test plan definition',w:'Tester + PM + Functional TA',s:'todo',
+   desc:'Define the comprehensive test strategy covering all test types, environments, tools, entry/exit criteria, and the risk-based approach to test prioritisation for ARIA and the banking modules.',
+   cl:['Define test types in scope: unit, integration, system (SIT), performance, security, UAT, regression','Define test environments: dev (for unit), staging (for SIT), UAT (for business users), pre-prod (for performance)','Define entry criteria per test phase: what must be true before testing begins (e.g. all SIT tickets raised = SIT complete)','Define exit criteria per test phase: what must be true to pass (e.g. zero Critical defects open, > 95% test cases passed)','Define risk-based test prioritisation: highest risk banking modules and regulatory functions tested first','Identify test automation scope: which test types and which test cases are candidates for automation','Get test strategy signed off by PM and Functional TA before first SIT sprint begins'],
+   del:['Test Strategy Document','Test Plan','Test Environment Matrix'],
+   aria:'ARIA Tester Agent analyses the FSD and business rules catalogue to recommend a risk-based test prioritisation matrix — highlighting which modules carry the highest financial and regulatory risk.',
+   col:'Functional TA provides domain input on which banking scenarios carry the highest risk. Integration TA provides infrastructure details for test environment setup. PM confirms test timeline aligns with project plan.',tip:''},
+  {sec:'Test Design',t:'Functional test case design from FSD and acceptance criteria',w:'Tester + Functional TA',s:'todo',
+   desc:'Design comprehensive functional test cases from the FSD, business rules catalogue, and user story acceptance criteria. Every test case must be traceable to a requirement.',
+   cl:['Create test cases for every FSD functional specification — at least 1 positive and 1 negative test per spec','Create test cases for every business rule in the rules catalogue — boundary conditions are mandatory','Derive test cases from user story acceptance criteria using Given/When/Then format','Every test case must reference: requirement ID, FSD section, expected result with exact data values','Prioritise test cases by risk: Critical (financial calculation, GL posting, regulatory) → High → Medium → Low','Peer review all Critical and High priority test cases with Functional TA before SIT begins','Store all test cases in ARIA test management with unique IDs (TC-ACC-001, TC-LOAN-001, etc.)'],
+   del:['Functional Test Case Library','Test Case Review Record','Test Case Traceability Map'],
+   aria:'ARIA Tester Agent auto-generates initial test case scaffolding from FSD business rules and acceptance criteria — Tester reviews, enriches with edge cases, and approves before execution.',
+   col:'Functional TA must review and approve all Critical test cases covering financial calculations and regulatory compliance before SIT begins. BA reviews acceptance criteria-based test cases for business accuracy.',tip:''},
+  {sec:'Test Execution',t:'System integration testing (SIT) execution and defect management',w:'Tester',s:'todo',
+   desc:'Execute all functional and integration test cases in the staging environment. Manage all defects through a structured triage process and track resolution to closure.',
+   cl:['Execute all planned test cases in priority order: Critical → High → Medium → Low','Log every defect with: ID, title, severity (Critical/Major/Minor/Trivial), steps to reproduce, expected vs actual result','Classify defect root cause: functional spec gap, development error, test data issue, or environment issue','Critical defects block sprint sign-off — they must be resolved and re-tested before sprint completion','Daily defect status meeting with Dev and Functional TA during active SIT sprint','Produce daily SIT progress report for PM: tests executed, pass rate, open defects by severity','SIT complete when: all Critical and Major defects closed, > 95% of all test cases passed, exit criteria met'],
+   del:['SIT Execution Report','Defect Register','Daily SIT Progress Report','SIT Exit Sign-off'],
+   aria:'ARIA Tester Agent generates daily SIT progress dashboards automatically from test execution data and flags any sprint where defect discovery rate suggests the feature is not ready for UAT.',
+   col:'Dev team owns defect fixes. Functional TA classifies whether a defect is a spec gap (requires FSD update) or a build error (Dev fix only). PM escalates if SIT exit criteria risk project milestone.',tip:''},
+  {sec:'Test Execution',t:'Regression test suite and automation strategy',w:'Tester + Dev Lead',s:'todo',
+   desc:'Build a regression test suite that can be executed automatically on every release to confirm that new code has not broken existing banking functionality. Banking systems cannot afford undetected regression.',
+   cl:['Identify regression test scope: all Critical and High business rules, all GL posting scenarios, all regulatory feeds','Build automated regression suite using the project\'s standard automation framework (Playwright / Pytest)','Integrate regression suite into CD pipeline: runs automatically on every staging deployment','Regression suite must complete within 30 minutes — parallelise execution to meet this target','Define regression pass threshold: 100% of Critical tests passed, ≥ 98% of all tests passed before prod release','Review and update regression suite after every production release to add new scenarios','Monthly regression suite health check: remove flaky tests, update data dependencies, verify coverage'],
+   del:['Automated Regression Test Suite','Regression Run Reports','Suite Maintenance Log'],
+   aria:'ARIA Tester Agent analyses regression run results over time and identifies flaky tests (pass/fail without code changes) — automatically flagging them for Tester review and remediation.',
+   col:'Dev team integrates the regression suite into the CD pipeline per Tester\'s specification. Integration TA provides test environment stability. Tester owns suite quality and maintenance.',tip:''},
+  {sec:'UAT & Sign-off',t:'UAT planning, execution coordination and sign-off',w:'Tester + BA + Client Bank Users',s:'todo',
+   desc:'Plan and coordinate User Acceptance Testing with client bank business users. UAT validates that the delivered system meets real-world banking operational requirements before go-live approval is granted.',
+   cl:['Define UAT scope: which modules, user journeys, and regulatory scenarios are in UAT scope','Prepare UAT test scripts in business-friendly language — based on acceptance criteria, not technical test cases','Identify and onboard UAT testers: bank business users only (not IT or Dev team members)','Schedule UAT window: minimum 2 weeks, with clear daily timetable and milestone checkpoints','Daily UAT status meeting with BA, PM, and key business testers to triage defects and blockers','All Critical and Major UAT defects must be resolved before go-live approval is considered','Obtain formal written UAT sign-off from client before any production deployment is approved by PM'],
+   del:['UAT Test Scripts','UAT Defect Log','UAT Sign-off Certificate'],
+   aria:'ARIA Tester Agent generates UAT test scripts directly from user story acceptance criteria and tracks UAT progress in real time — alerting PM if daily completion rate will miss the planned UAT exit date.',
+   col:'BA prepares and trains business testers on their test scripts. Tester facilitates UAT sessions, logs defects, and tracks resolution. PM communicates UAT progress and issues to the client sponsor.',tip:''},
+  {sec:'Quality Reporting',t:'Test metrics, quality dashboard and final test summary report',w:'Tester + PM',s:'todo',
+   desc:'Track and report test quality metrics throughout delivery and produce a comprehensive final test summary report as evidence for project closure, client handover, and BOI application.',
+   cl:['Track key test metrics throughout delivery: test execution rate, defect discovery rate, defect closure rate, pass rate by module','Publish a live quality dashboard in ARIA accessible to all roles and the client throughout SIT and UAT','Defect trend analysis: is the defect discovery rate declining (healthy) or flat/rising (unhealthy — escalate to PM)','Produce final test summary report covering: scope tested, test results by module, defects summary, known residual risks','Final report must include regulatory module test results explicitly for BOI and client compliance records','Present final test summary report in project closure meeting — PM and client must formally accept','Archive all test artefacts in ARIA: test cases, defect logs, execution reports, sign-off certificates'],
+   del:['Quality Metrics Dashboard','Final Test Summary Report','Test Artefact Archive'],
+   aria:'ARIA Tester Agent auto-generates the final test summary report from all test execution data, defect logs, and sign-off records in ARIA — reducing report writing effort from days to hours.',
+   col:'PM reviews test summary report before client presentation. Functional TA signs off on banking module test results. Integration TA signs off on integration and performance test results.',tip:'Final test summary report is required as evidence in the BOI progress report and forms part of the project governance record.'}
+ ]},
+{id:'ma',icon:'🛠️',name:'MA',full:'Maintenance Engineer',color:'#7C2D12',light:'#FFF7ED',
+ sub:'Ensures ARIA platform and banking system reliability post-deployment through proactive monitoring, incident response, root cause analysis, and change management.',
+ stack:[{l:'AWS CloudWatch',b:'#7C2D12',f:'#fff'},{l:'Incident Response',b:'#FFF7ED',f:'#7C2D12'},{l:'Root Cause Analysis',b:'#FFF7ED',f:'#7C2D12'},{l:'Change Management',b:'#FFF7ED',f:'#7C2D12'}],
+ pain:['Reactive firefighting with no proactive alerts','Poor incident documentation','Root cause gaps and repeat incidents','Undocumented runbooks','No change management discipline','SLA breaches from slow response'],
+ sops:[
+  {sec:'Monitoring Setup',t:'Production monitoring and alerting configuration',w:'MA + Integration TA',s:'todo',
+   desc:'Configure comprehensive production monitoring and alerting for all ARIA platform components and banking modules. Proactive monitoring prevents incidents; reactive monitoring only reduces their duration.',
+   cl:['Configure AWS CloudWatch dashboards: one per layer (API, agent, database, infrastructure)','Set up metric alarms: API p95 latency > 2s, error rate > 1%, OceanBase CPU > 70%, EKS pod restarts','Configure CloudWatch Synthetics: canary tests against all agent endpoints every 5 minutes','Set up PagerDuty on-call rotation: Primary (MA), Secondary (Integration TA), Escalation (PM)','Define alert severity levels: P1 (immediate response < 15 min), P2 (< 1 hr), P3 (< 4 hrs), P4 (next business day)','Configure banking-specific monitors: GL posting success rate, regulatory reporting feed status, EOD batch completion','Test all alerts before go-live: deliberately trigger each alert type and confirm correct routing and escalation'],
+   del:['CloudWatch Dashboard Suite','Alert Configuration Register','PagerDuty On-Call Schedule'],
+   aria:'ARIA MA Agent continuously analyses CloudWatch metric trends and proactively flags when a metric is trending toward a threshold breach — alerting the MA before the alarm fires.',
+   col:'Integration TA designs the monitoring architecture and provides CloudWatch access. MA configures and owns alerting thresholds based on agreed NFRs. PM reviews on-call schedule and escalation paths.',tip:'Enable AWS X-Ray distributed tracing for all agent invocations — this is essential for diagnosing performance issues across the multi-service architecture and provides full audit trail for BOI.'},
+  {sec:'Monitoring Setup',t:'Production runbook library creation',w:'MA + Dev + Functional TA',s:'todo',
+   desc:'Create step-by-step runbooks for all known operational scenarios — from routine health checks to complex incident responses. A runbook-first culture reduces incident duration and prevents knowledge dependency on individuals.',
+   cl:['Identify all operational scenarios requiring a runbook: EOD batch, agent restarts, database failover, SSL cert renewal, etc.','Create runbook template: title, trigger condition, owner, pre-conditions, step-by-step procedure, expected outcome, escalation','Write runbook for every P1 and P2 incident type identified during the monitoring setup phase','Write runbook for routine operations: daily health check, weekly capacity review, monthly DR test','Each runbook must be validated: a second MA or Dev team member must successfully execute it independently','Store all runbooks in ARIA — never in personal documents or local drives','Review and update runbooks after every incident where the existing runbook was found to be incomplete'],
+   del:['Production Runbook Library','Runbook Validation Log','Runbook Review Schedule'],
+   aria:'ARIA MA Agent automatically surfaces the relevant runbook when an incident alert is triggered — reducing time-to-response from minutes to seconds by eliminating the need to search for procedures under pressure.',
+   col:'Dev team validates runbooks for application-layer procedures. Functional TA validates runbooks involving banking business processes (EOD batch, GL reconciliation). Integration TA validates infrastructure runbooks.',tip:''},
+  {sec:'Incident Response',t:'Incident response process and severity classification',w:'MA + PM',s:'todo',
+   desc:'Define the structured incident response process that governs how every production incident is detected, communicated, investigated, resolved, and documented. Consistent incident response protects client relationships and BOT compliance standing.',
+   cl:['Define incident severity matrix: P1 (full outage / data integrity risk), P2 (major function unavailable), P3 (partial degradation), P4 (minor issue / cosmetic)','P1 incident response: MA acknowledges in 15 min, PM notified in 30 min, client communication within 1 hour — no exceptions','Create Incident Jira ticket immediately on P1/P2 detection — timeline entries logged every 30 minutes minimum','Define War Room protocol for P1: MA leads, Dev and Integration TA join, PM manages client communication','Define resolution criteria per severity: what must be true to declare an incident resolved','Post-incident client communication template: cause, impact, resolution, and prevention measures','All P1 and P2 incidents must have an RCA completed within 48 hours of resolution'],
+   del:['Incident Severity Matrix','Incident Response Procedure','Client Communication Templates','War Room Protocol'],
+   aria:'ARIA MA Agent automatically creates the Jira incident ticket on alert trigger, pre-populates fields from CloudWatch data, and begins the timeline log — allowing the MA to focus on resolution rather than administration.',
+   col:'PM owns all external client communication during incidents. MA owns technical investigation and resolution. Integration TA is the first technical escalation for infrastructure-layer incidents.',tip:'For banking systems: any incident affecting GL posting accuracy, regulatory reporting, or customer account balances is automatically P1 regardless of user impact scope. Notify Compliance immediately for any potential regulatory breach.'},
+  {sec:'Root Cause Analysis',t:'Root cause analysis (RCA) process and post-mortem culture',w:'MA + Dev + PM',s:'todo',
+   desc:'Conduct structured root cause analysis for all P1 and P2 incidents to identify underlying causes and implement systemic fixes. A strong RCA culture prevents repeat incidents — the most expensive type.',
+   cl:['Complete RCA for every P1 and P2 incident within 48 hours of resolution — this is mandatory, not optional','Use the 5-Why methodology as the primary RCA technique — document each "why" step explicitly','RCA document structure: incident summary, timeline, root cause, contributing factors, immediate fix, permanent fix, preventive actions','Identify whether the root cause is: code defect, config error, infrastructure failure, process gap, or human error','Every RCA must produce at least 1 preventive action with an owner and due date','Present RCA findings in monthly ops review — all roles attend, patterns are discussed','Track all RCA preventive actions to closure in ARIA — open actions are reviewed at every ops meeting'],
+   del:['RCA Report (per P1/P2 incident)','Preventive Action Tracker','Monthly Ops Review Deck'],
+   aria:'ARIA MA Agent analyses RCA patterns across all incidents and identifies recurring root cause categories — alerting when the same root cause appears 3+ times without a systemic fix being implemented.',
+   col:'Dev team owns code and config defect fixes identified in RCA. Integration TA owns infrastructure and IaC fixes. PM presents RCA summaries to steering committee for serious incidents. Functional TA reviews RCAs involving banking business logic failures.',tip:''},
+  {sec:'Change Management',t:'Production change management and approval workflow',w:'MA + Integration TA + PM',s:'todo',
+   desc:'Define the change management process governing all production changes — from routine config updates to emergency hotfixes. Uncontrolled production changes are a leading cause of banking system outages and regulatory findings.',
+   cl:['Define change types: Standard (pre-approved, low-risk, repeatable), Normal (requires CAB approval), Emergency (expedited for P1 resolution only)','Standard changes: pre-approved list maintained by MA and Integration TA — no meeting required','Normal changes: raise change request in ARIA 5 business days before planned window, CAB review required','Emergency changes: Integration TA + PM dual approval within 1 hour — full change request submitted retrospectively within 24 hours','All changes must have: test plan, rollback plan, and communication plan before approval is granted','Change freeze periods: agreed with client during critical banking periods (month-end, quarter-end, regulatory submission dates)','Maintain change log in ARIA: every production change documented with date, description, owner, and outcome'],
+   del:['Change Management Policy','Standard Change Pre-Approved List','Change Log','CAB Meeting Record'],
+   aria:'ARIA MA Agent maintains the standard change register and alerts the CAB when a proposed normal change conflicts with a previously approved change or a defined change freeze period.',
+   col:'Integration TA assesses all infrastructure-layer changes before CAB submission. Functional TA assesses changes affecting banking business logic. PM chairs CAB and communicates change windows to the client.',tip:'BOT IT risk management requirements (NorTorChor 74/2552) mandate a formal change management process for banking systems. All change records in ARIA serve as BOI and regulatory compliance evidence.'},
+  {sec:'Continuous Improvement',t:'SLA tracking, capacity planning and continuous improvement',w:'MA + PM + Integration TA',s:'todo',
+   desc:'Track platform SLA performance against agreed NFRs, proactively manage infrastructure capacity, and drive continuous improvement to platform reliability month over month.',
+   cl:['Produce monthly SLA report: availability %, p95 API latency, agent invocation success rate, incident counts by severity','Compare monthly SLA actuals against committed NFR thresholds — flag breaches to PM immediately','Quarterly capacity review: analyse usage growth trends and forecast compute, storage, and OceanBase capacity needs','Proactive scaling: raise capacity increase requests before utilisation exceeds 70% threshold — never reactive','Identify top 3 reliability improvement opportunities each quarter from incident data and monitoring trends','Track improvement actions with owners and due dates in ARIA — report progress at monthly ops review','Annual DR test: execute full failover to DR environment, measure RTO and RPO against committed targets, update runbooks based on results'],
+   del:['Monthly SLA Report','Quarterly Capacity Plan','Improvement Action Tracker','Annual DR Test Report'],
+   aria:'ARIA MA Agent auto-generates monthly SLA reports from CloudWatch data and proactively models capacity growth curves from usage trends — producing a 90-day infrastructure forecast for the MA and PM.',
+   col:'Integration TA acts on capacity scaling recommendations. PM presents SLA reports to steering committee and client. Functional TA reviews SLA metrics for banking-specific operations (EOD batch, GL reconciliation completion times).',tip:'Monthly SLA reports are required as evidence in BOI progress reporting. Archive all reports in ARIA for the full project lifecycle — these form part of the BOI compliance and governance record.'}
+ ]}
+];
 
+let S={role:'pm',open:new Set(),ck:{}};
+
+function sw(id){S.role=id;renderSidebar();renderMain();}
+function tog(i){S.open.has(i)?S.open.delete(i):S.open.add(i);renderMain();}
+function tick(si,ci){const k=S.role+'-'+si+'-'+ci;S.ck[k]=!S.ck[k];renderMain();}
+function isCk(si,ci){return!!S.ck[S.role+'-'+si+'-'+ci];}
+function setSt(i,st){R.find(r=>r.id===S.role).sops[i].s=st;renderSidebar();renderMain();}
+
+function getPct(r){
+  const d=r.sops.filter(s=>s.s==='done').length;
+  return{d,t:r.sops.length,p:Math.round(d/r.sops.length*100)};
+}
+function globalStats(){
+  const d=R.reduce((a,r)=>a+r.sops.filter(s=>s.s==='done').length,0);
+  const t=R.reduce((a,r)=>a+r.sops.length,0);
+  return{d,t,p:Math.round(d/t*100)};
+}
+
+function renderSidebar(){
+  const {d,t,p}=globalStats();
+  document.getElementById('ts-done').textContent=d;
+  document.getElementById('ts-tot').textContent=t;
+  document.getElementById('ts-pct').textContent=p;
+
+  const html=`
+    <div class="sb-head">Delivery Roles</div>
+    ${R.map(r=>{
+      const {d:rd,t:rt,p:rp}=getPct(r);
+      return`<div class="role-btn ${S.role===r.id?'active':''}" onclick="sw('${r.id}')" style="${S.role===r.id?'border-left-color:'+r.color+';':''}">
+        <div class="rb-icon" style="background:${r.light};">${r.icon}</div>
+        <div class="rb-info">
+          <div class="rb-name" style="${S.role===r.id?'color:'+r.color+';':''}">${r.icon} ${r.name}</div>
+          <div class="rb-pct">${rd}/${rt} steps · ${rp}%</div>
+          <div class="rb-bar"><div class="rb-fill" style="width:${rp}%;background:${r.color};"></div></div>
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="sb-div"></div>
+    <div class="sb-sum">
+      <div class="sb-sum-title">Overall Progress</div>
+      <div class="sg">
+        <div class="sc"><div class="sc-n" style="color:var(--navy);">${t}</div><div class="sc-l">Total steps</div></div>
+        <div class="sc"><div class="sc-n" style="color:var(--green);">${d}</div><div class="sc-l">Completed</div></div>
+        <div class="sc"><div class="sc-n" style="color:var(--amber);">${R.reduce((a,r)=>a+r.sops.filter(s=>s.s==='wip').length,0)}</div><div class="sc-l">In progress</div></div>
+        <div class="sc"><div class="sc-n" style="color:var(--subtle);">${R.reduce((a,r)=>a+r.sops.filter(s=>s.s==='todo').length,0)}</div><div class="sc-l">To do</div></div>
+      </div>
+    </div>`;
+  document.getElementById('sidebar').innerHTML=html;
+}
+
+function renderMain(){
+  const r=R.find(x=>x.id===S.role);
+  const{d,t,p}=getPct(r);
+  const wip=r.sops.filter(s=>s.s==='wip').length;
+  const todo=r.sops.filter(s=>s.s==='todo').length;
+  const secs=[...new Set(r.sops.map(s=>s.sec))];
+
+  const rh=`<div class="rh" style="border-left:4px solid ${r.color};">
+    <div class="rh-av" style="background:${r.light};">${r.icon}</div>
+    <div style="flex:1;">
+      <div class="rh-name" style="color:${r.color};">${r.full}</div>
+      <div class="rh-sub">${r.sub}</div>
+      <div class="stk">${r.stack.map(s=>`<span class="st" style="background:${s.b};color:${s.f};">${s.l}</span>`).join('')}</div>
+    </div>
+  </div>`;
+
+  const stats=`<div class="stats">
+    <div class="stat"><div class="stat-n" style="color:${r.color};">${t}</div><div class="stat-l">SOP steps</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--green);">${d}</div><div class="stat-l">Completed</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--amber);">${wip}</div><div class="stat-l">In progress</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--subtle);">${todo}</div><div class="stat-l">To do</div></div>
+  </div>`;
+
+  const pb=`<div class="pb">
+    <div class="pb-m"><span style="color:${r.color};">${r.full} — SOP completion</span><span>${d}/${t} steps · ${p}%</span></div>
+    <div class="pb-t"><div class="pb-f" style="width:${p}%;background:${r.color};"></div></div>
+  </div>`;
+
+  const pain=`<div class="pain">
+    <span class="pl">Pain points addressed:</span>
+    ${r.pain.map(p=>`<span class="pt">${p}</span>`).join('')}
+  </div>`;
+
+  const stabs=`<div class="stabs">${secs.map(s=>`<span class="stab" style="background:${r.color};">${s}</span>`).join('')}</div>`;
+
+  const cards=r.sops.map((sop,i)=>{
+    const op=S.open.has(i);
+    const bc=sop.s==='done'?'b-done':sop.s==='wip'?'b-wip':'b-todo';
+    const bl=sop.s==='done'?'Done':sop.s==='wip'?'In progress':'To do';
+    const cc=sop.cl.filter((_,ci)=>isCk(i,ci)).length;
+    const bankTip=sop.tip?`<div class="tip t-bank"><strong>Banking/AWS context:</strong> ${sop.tip}</div>`:'';
+    return`<div class="card">
+      <div class="ch" onclick="tog(${i})">
+        <div class="sn" style="background:${r.color};">${i+1}</div>
+        <div class="si">
+          <div class="st2">${sop.t}</div>
+          <div class="sw">${sop.w} · ${sop.sec} · ${cc}/${sop.cl.length} checked</div>
+        </div>
+        <div class="sr">
+          <span class="badge ${bc}">${bl}</span>
+          <span class="chev ${op?'op':''}">▶</span>
+        </div>
+      </div>
+      <div class="cb ${op?'op':''}">
+        <div class="bl">Overview</div>
+        <div class="bt">${sop.desc}</div>
+        <div class="bl">Checklist</div>
+        <div class="cl">${sop.cl.map((c,ci)=>`
+          <div class="ci">
+            <div class="ckb ${isCk(i,ci)?'on':''}" onclick="tick(${i},${ci})">${isCk(i,ci)?'✓':''}</div>
+            <span style="${isCk(i,ci)?'text-decoration:line-through;opacity:0.5;':''}">${c}</span>
+          </div>`).join('')}
+        </div>
+        <div class="bl">Key Deliverables</div>
+        <div class="dr">${sop.del.map(d=>`<span class="del" style="background:${r.light};color:${r.color};">${d}</span>`).join('')}</div>
+        <div class="tip t-aria"><strong>ARIA agent assist:</strong> ${sop.aria}</div>
+        <div class="tip t-col"><strong>Cross-role collaboration:</strong> ${sop.col}</div>
+        ${bankTip}
+        <div class="acts">
+          <button class="btn ${sop.s==='done'?'':'btn-outline'}" style="${sop.s==='done'?'background:'+r.color+';color:#fff;border-color:'+r.color+';':''}" onclick="setSt(${i},'done')">Mark done</button>
+          <button class="btn ${sop.s==='wip'?'btn-wip':''}" onclick="setSt(${i},'wip')">In progress</button>
+          <button class="btn" onclick="setSt(${i},'todo')">Reset</button>
+          <button class="btn btn-ai" onclick="alert('Ask ARIA: Expand ${r.name} SOP step ${i+1} — ${sop.t.replace(/'/g,'')}')">Expand with AI</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('main').innerHTML=rh+stats+pb+pain+stabs+`<div class="cards">${cards}</div>`;
+}
+
+renderSidebar();
+renderMain();
+</script>
+</body>
+</html>
