@@ -8,48 +8,27 @@
 :root{--navy:#0A1F44;--gold:#C9A84C;--bg:#F4F6FB;--surface:#fff;--border:#E2E8F0;--text:#1A202C;--muted:#718096;--subtle:#A0AEC0;--green:#22C55E;--amber:#F59E0B;--red:#EF4444;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
-.login-card{background:var(--surface);border-radius:16px;border:1px solid var(--border);padding:36px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
-.login-logo{background:var(--navy);color:var(--gold);font-size:15px;font-weight:700;padding:7px 16px;border-radius:8px;display:inline-block;margin-bottom:10px;}
-.login-title{font-size:20px;font-weight:600;margin-bottom:4px;}
-.login-sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px;}
-.role-opt{padding:9px 6px;border-radius:9px;border:1.5px solid var(--border);cursor:pointer;text-align:center;transition:all .15s;}
-.role-opt:hover{border-color:var(--subtle);}
-.role-opt.sel{border-width:2px;}
-.ro-icon{font-size:17px;margin-bottom:2px;}
-.ro-name{font-size:11px;font-weight:600;}
-.ro-full{font-size:10px;color:var(--muted);}
-.pw-wrap{position:relative;margin-bottom:12px;}
-.pw-wrap input{width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);font-size:14px;outline:none;color:var(--text);}
-.pw-wrap input:focus{border-color:var(--navy);}
-.login-btn{width:100%;padding:11px;border-radius:8px;background:var(--navy);color:var(--gold);font-size:14px;font-weight:600;border:none;cursor:pointer;}
-.login-err{color:var(--red);font-size:12px;text-align:center;margin-top:8px;min-height:16px;}
-.login-hint{font-size:11px;color:var(--subtle);text-align:center;margin-top:10px;line-height:1.5;}
-.app{display:none;}
-.topbar{background:var(--navy);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:200;}
+.topbar{background:var(--navy);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.2);}
 .brand{color:var(--gold);font-size:14px;font-weight:700;}
 .brand span{color:rgba(255,255,255,.35);font-weight:400;font-size:11px;margin-left:8px;}
-.top-right{display:flex;align-items:center;gap:10px;}
-.user-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);padding:4px 12px;border-radius:20px;}
-.u-dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
-.u-name{font-size:12px;color:#fff;font-weight:500;}
-.ts{color:rgba(255,255,255,.45);font-size:11px;}
+.top-r{display:flex;align-items:center;gap:12px;}
+.ts{color:rgba(255,255,255,.5);font-size:11px;}
 .ts b{color:#fff;}
-.logout{font-size:11px;color:rgba(255,255,255,.45);cursor:pointer;padding:4px 9px;border-radius:6px;border:0.5px solid rgba(255,255,255,.2);}
-.logout:hover{color:#fff;}
-.lang-toggle{font-size:11px;color:rgba(255,255,255,.7);cursor:pointer;padding:4px 10px;border-radius:6px;border:0.5px solid rgba(255,255,255,.3);font-weight:500;transition:all .12s;}
-.lang-toggle:hover{background:rgba(255,255,255,.15);color:#fff;}
-.layout{display:grid;grid-template-columns:215px 1fr;min-height:calc(100vh - 52px);}
+.lang-btn{font-size:11px;color:rgba(255,255,255,.7);cursor:pointer;padding:3px 10px;border-radius:6px;border:0.5px solid rgba(255,255,255,.3);font-weight:500;background:transparent;}
+.lang-btn:hover{background:rgba(255,255,255,.15);color:#fff;}
+.role-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);padding:4px 12px;border-radius:20px;}
+.rp-dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+.rp-name{font-size:12px;color:#fff;font-weight:500;}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px);}
 .sidebar{background:var(--surface);border-right:1px solid var(--border);position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;padding-bottom:16px;}
 .sb-head{padding:12px 14px 4px;font-size:10px;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.5px;}
 .rb{display:flex;align-items:center;gap:9px;padding:8px 12px;cursor:pointer;border-left:3px solid transparent;transition:all .12s;}
 .rb:hover{background:var(--bg);}
 .rb.active{background:var(--bg);}
-.rb-icon{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
-.rb-info{flex:1;min-width:0;}
-.rb-name{font-size:12px;font-weight:600;}
-.rb-pct{font-size:10px;color:var(--muted);}
+.rb-ic{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.rb-inf{flex:1;min-width:0;}
+.rb-nm{font-size:12px;font-weight:600;}
+.rb-pc{font-size:10px;color:var(--muted);}
 .rb-bar{height:2px;background:var(--border);border-radius:1px;margin-top:3px;overflow:hidden;}
 .rb-fill{height:100%;border-radius:1px;transition:width .3s;}
 .sb-div{height:1px;background:var(--border);margin:6px 12px;}
@@ -61,164 +40,147 @@ body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:
 .main{padding:20px;overflow-y:auto;}
 .rh{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:16px;margin-bottom:14px;}
 .rh-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.rh-name{font-size:17px;font-weight:700;margin-bottom:3px;}
+.rh-nm{font-size:17px;font-weight:700;margin-bottom:3px;}
 .rh-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:7px;}
 .stk{display:flex;gap:4px;flex-wrap:wrap;}
-.stk-tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600;}
-.toolbar{display:flex;gap:7px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
-.tbtn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:12px;font-weight:500;cursor:pointer;transition:all .12s;}
+.stk-t{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:600;}
+.tb{display:flex;gap:7px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+.tbtn{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:12px;font-weight:500;cursor:pointer;transition:all .12s;}
 .tbtn:hover{background:var(--bg);}
-.tbtn.primary{background:var(--navy);color:var(--gold);border-color:var(--navy);}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:13px;}
-.stat{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px;text-align:center;}
+.tbtn.pr{background:var(--navy);color:var(--gold);border-color:var(--navy);}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:13px;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px;text-align:center;}
 .stat-n{font-size:20px;font-weight:700;}
 .stat-l{font-size:10px;color:var(--muted);margin-top:1px;}
-.pb{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 14px;margin-bottom:13px;}
+.pb{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:13px;}
 .pb-m{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px;}
 .pb-t{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
 .pb-f{height:100%;border-radius:3px;transition:width .4s;}
-.activity{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:9px 13px;margin-bottom:13px;}
-.act-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;}
-.act-list{display:flex;flex-direction:column;gap:4px;max-height:80px;overflow-y:auto;}
-.act-item{font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;}
+.act-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 13px;margin-bottom:13px;}
+.act-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.act-ttl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+.act-btns{display:flex;gap:4px;}
+.asmb{font-size:10px;padding:2px 8px;border-radius:5px;border:0.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;}
+.asmb.r{border-color:#FECACA;color:var(--red);}
+.act-list{display:flex;flex-direction:column;gap:3px;max-height:70px;overflow-y:auto;}
+.act-it{font-size:11px;color:var(--muted);display:flex;gap:5px;align-items:flex-start;}
 .act-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px;}
-.act-time{font-size:10px;color:var(--subtle);margin-left:auto;white-space:nowrap;}
-.pain{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;padding:9px 12px;background:var(--surface);border:1px solid var(--border);border-radius:9px;align-items:center;}
-.pl{font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap;margin-right:3px;}
-.pt{font-size:10px;padding:2px 7px;border-radius:4px;background:#FFFBEB;color:#92400E;border:1px solid #FCD34D;}
-.stabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px;}
-.stab{font-size:10px;padding:3px 9px;border-radius:20px;color:#fff;font-weight:500;}
+.act-tm{font-size:10px;color:var(--subtle);margin-left:auto;white-space:nowrap;}
+.pain-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px;padding:9px 13px;background:var(--surface);border:1px solid var(--border);border-radius:10px;align-items:center;}
+.pl{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;margin-right:3px;}
+.pt{font-size:11px;padding:2px 8px;border-radius:5px;background:#FFFBEB;color:#92400E;border:1px solid #FCD34D;}
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px;}
+.stab{font-size:11px;padding:4px 10px;border-radius:20px;color:#fff;font-weight:500;}
 .cards{display:flex;flex-direction:column;gap:8px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:11px;overflow:hidden;transition:box-shadow .15s;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .15s;}
 .card:hover{box-shadow:0 2px 10px rgba(0,0,0,.06);}
-.ch{display:flex;align-items:flex-start;gap:9px;padding:11px 13px;cursor:pointer;}
+.ch{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;cursor:pointer;}
 .sn{min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px;}
 .si{flex:1;}
 .st2{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.4;}
-.sw{font-size:10px;color:var(--muted);}
-.sr{display:flex;align-items:center;gap:6px;flex-shrink:0;}
-.badge{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:500;white-space:nowrap;}
+.sw{font-size:11px;color:var(--muted);}
+.sr{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.badge{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:500;white-space:nowrap;}
 .b-done{background:#D1FAE5;color:#065F46;}
 .b-wip{background:#FEF3C7;color:#92400E;}
 .b-todo{background:#F1F5F9;color:var(--muted);}
-.chev{font-size:10px;color:var(--subtle);transition:transform .15s;display:inline-block;}
+.chev{font-size:11px;color:var(--subtle);transition:transform .15s;display:inline-block;}
 .chev.op{transform:rotate(90deg);}
-.cb{display:none;padding:0 13px 13px 44px;border-top:1px solid var(--border);}
-.cb.op{display:block;padding-top:11px;}
-.bl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;}
-.bt{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:10px;}
-.ck-list{display:flex;flex-direction:column;gap:3px;margin-bottom:10px;}
-.ck-item{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--muted);line-height:1.5;}
-.ckb{width:14px;height:14px;border:1.5px solid var(--border);border-radius:3px;flex-shrink:0;margin-top:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;transition:all .12s;}
+.ehb{font-size:11px;padding:2px 8px;border-radius:5px;border:0.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;}
+.cb{display:none;padding:0 14px 14px 46px;border-top:1px solid var(--border);}
+.cb.op{display:block;padding-top:12px;}
+.bl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;display:flex;align-items:center;gap:4px;}
+.bt{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:11px;}
+.ck-list{display:flex;flex-direction:column;gap:4px;margin-bottom:11px;}
+.ck-it{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);line-height:1.5;}
+.ckb{width:14px;height:14px;border:1.5px solid var(--border);border-radius:3px;flex-shrink:0;margin-top:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .12s;}
 .ckb.on{background:var(--green);border-color:var(--green);color:#fff;}
-.task-section{margin-bottom:10px;}
 .task-list{display:flex;flex-direction:column;gap:3px;margin-bottom:6px;}
-.task-item{display:flex;align-items:center;gap:7px;padding:6px 9px;background:var(--bg);border-radius:7px;border:0.5px solid var(--border);}
-.task-cb{width:14px;height:14px;border:1.5px solid var(--border);border-radius:3px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;transition:all .12s;}
-.task-cb.on{background:var(--green);border-color:var(--green);color:#fff;}
-.task-text{flex:1;font-size:12px;color:var(--text);}
-.task-text.done{text-decoration:line-through;color:var(--subtle);}
-.task-owner{font-size:10px;color:var(--muted);background:var(--surface);padding:1px 6px;border-radius:10px;border:0.5px solid var(--border);}
-.task-del{font-size:11px;color:var(--subtle);cursor:pointer;padding:2px 5px;border-radius:4px;}
-.task-del:hover{color:var(--red);}
+.task-it{display:flex;align-items:center;gap:7px;padding:6px 9px;background:var(--bg);border-radius:7px;border:0.5px solid var(--border);}
+.tcb{width:14px;height:14px;border:1.5px solid var(--border);border-radius:3px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .12s;}
+.tcb.on{background:var(--green);border-color:var(--green);color:#fff;}
+.ttxt{flex:1;font-size:12px;color:var(--text);}
+.ttxt.done{text-decoration:line-through;color:var(--subtle);}
+.towner{font-size:10px;color:var(--muted);background:var(--surface);padding:1px 6px;border-radius:10px;border:0.5px solid var(--border);}
+.dico{font-size:11px;color:var(--subtle);cursor:pointer;padding:1px 5px;border-radius:4px;}
+.dico:hover{color:var(--red);}
 .add-row{display:flex;gap:6px;margin-top:4px;}
-.add-row input,.add-row textarea{flex:1;padding:6px 10px;border-radius:7px;border:1px solid var(--border);font-size:12px;outline:none;color:var(--text);font-family:inherit;}
+.add-row input,.add-row textarea{flex:1;padding:6px 10px;border-radius:7px;border:1px solid var(--border);font-size:12px;outline:none;color:var(--text);background:var(--surface);font-family:inherit;}
 .add-row input:focus,.add-row textarea:focus{border-color:var(--navy);}
 .add-row select{padding:6px 8px;border-radius:7px;border:1px solid var(--border);font-size:11px;outline:none;background:var(--surface);color:var(--text);}
-.add-row button{padding:6px 11px;border-radius:7px;background:var(--navy);color:var(--gold);border:none;font-size:11px;font-weight:600;cursor:pointer;}
-.note-section{margin-bottom:10px;}
+.add-row button{padding:6px 12px;border-radius:7px;background:var(--navy);color:var(--gold);border:none;font-size:11px;font-weight:600;cursor:pointer;}
 .note-list{display:flex;flex-direction:column;gap:4px;margin-bottom:6px;}
-.note-item{padding:7px 10px;background:#FFFBF0;border-radius:7px;border:0.5px solid #FCD34D;font-size:12px;display:flex;gap:7px;}
-.note-meta{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;}
-.note-del{font-size:10px;color:var(--subtle);cursor:pointer;margin-left:auto;}
-.note-del:hover{color:var(--red);}
-.del-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;}
-.del-tag{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:500;}
+.note-it{padding:7px 10px;background:#FFFBF0;border-radius:7px;border:0.5px solid #FCD34D;font-size:12px;display:flex;gap:7px;}
+.note-meta{font-size:10px;color:var(--muted);margin-top:2px;}
+.del-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;}
+.del-tag{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:500;}
 .card-acts{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
-.ca-btn{font-size:11px;padding:5px 10px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;transition:all .12s;}
-.ca-btn:hover{background:var(--bg);}
-.ca-btn.del-btn{color:var(--red);border-color:#FECACA;}
-.ca-btn.del-btn:hover{background:#FFF5F5;}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center;}
-.modal-overlay.show{display:flex;}
-.modal{background:var(--surface);border-radius:14px;padding:24px;width:100%;max-width:480px;margin:20px;max-height:80vh;overflow-y:auto;}
-.modal-title{font-size:16px;font-weight:600;margin-bottom:16px;}
-.field{margin-bottom:12px;}
-.field label{font-size:12px;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;}
-.field input,.field textarea,.field select{width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:13px;outline:none;color:var(--text);font-family:inherit;transition:border-color .15s;}
+.ca{font-size:11px;padding:5px 10px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;transition:all .12s;}
+.ca:hover{background:var(--bg);}
+.ca.red{color:var(--red);border-color:#FECACA;}
+.ca.red:hover{background:#FFF5F5;}
+.hw{position:relative;display:inline-flex;}
+.hic{width:13px;height:13px;border-radius:50%;background:var(--bg);border:0.5px solid var(--border);color:var(--muted);font-size:8px;font-style:italic;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;}
+.hic:hover{background:var(--navy);color:var(--gold);border-color:var(--navy);}
+.htip{display:none;position:absolute;left:18px;top:50%;transform:translateY(-50%);background:var(--navy);color:#fff;font-size:11px;line-height:1.55;padding:8px 12px;border-radius:7px;width:200px;z-index:100;}
+.htip::before{content:'';position:absolute;left:-4px;top:50%;transform:translateY(-50%);border:4px solid transparent;border-right-color:var(--navy);border-left:none;}
+.hw:hover .htip{display:block;}
+.empty{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center;}
+.modal-ov.show{display:flex;}
+.modal{background:var(--surface);border-radius:14px;padding:22px;width:100%;max-width:460px;margin:16px;max-height:80vh;overflow-y:auto;}
+.modal-title{font-size:15px;font-weight:600;margin-bottom:14px;}
+.field{margin-bottom:10px;}
+.field label{font-size:12px;font-weight:500;color:var(--muted);display:block;margin-bottom:3px;}
+.field input,.field textarea,.field select{width:100%;padding:8px 11px;border-radius:8px;border:1.5px solid var(--border);font-size:13px;outline:none;color:var(--text);font-family:inherit;transition:border-color .15s;}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--navy);}
-.field textarea{resize:vertical;min-height:70px;}
-.modal-actions{display:flex;gap:8px;margin-top:16px;}
-.modal-btn{flex:1;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;}
-.modal-save{background:var(--navy);color:var(--gold);}
-.modal-cancel{background:var(--bg);color:var(--text);border:1px solid var(--border);}
-.empty-state{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
-.view-note{font-size:12px;color:var(--muted);padding:6px 10px;background:var(--bg);border-radius:7px;border:0.5px solid var(--border);}
-.help-wrap{position:relative;display:inline-flex;align-items:center;}
-.help-btn{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--bg);border:0.5px solid var(--border);color:var(--muted);font-size:9px;font-style:italic;font-weight:700;cursor:pointer;flex-shrink:0;margin-left:5px;transition:all .12s;vertical-align:middle;}
-.help-btn:hover{background:var(--navy);color:var(--gold);border-color:var(--navy);}
-.help-tip{display:none;position:absolute;left:22px;top:50%;transform:translateY(-50%);background:var(--navy);color:#fff;font-size:11px;line-height:1.55;padding:8px 12px;border-radius:8px;width:220px;z-index:100;font-style:normal;font-weight:400;box-shadow:0 4px 12px rgba(0,0,0,.2);}
-.help-tip::before{content:'';position:absolute;left:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--navy);border-left:none;}
-.help-wrap:hover .help-tip{display:block;}
+.field textarea{resize:vertical;min-height:65px;}
+.modal-acts{display:flex;gap:8px;margin-top:14px;}
+.mb{flex:1;padding:9px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;}
+.ms{background:var(--navy);color:var(--gold);}
+.mc{background:var(--bg);color:var(--text);border:1px solid var(--border);}
 @media(max-width:680px){.layout{grid-template-columns:1fr;}.sidebar{position:relative;height:auto;}.stats{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
-<div class="login-wrap" id="loginWrap">
-  <div class="login-card">
-    <div style="text-align:center;margin-bottom:24px;">
-      <div class="login-logo">ARIA · 新智汇</div>
-      <div class="login-title">SOP Workspace</div>
-      <div class="login-sub" id="loginSubText">Select your role and enter the password</div>
-    </div>
-    <div class="role-grid" id="roleGrid"></div>
-    <div class="pw-wrap"><input type="password" id="pwInput" placeholder="Enter role password..." /></div>
-    <button class="login-btn" id="loginBtnEl" onclick="doLogin()">Sign In</button>
-    <div class="login-err" id="loginErr"></div>
-    <div class="login-hint" id="loginHintText">Contact your PM for role passwords.<br>Default passwords: [role]2024 (e.g. pm2024)</div>
+<div class="topbar">
+  <div class="brand">ARIA · 新智汇 <span id="bsub">SOP Workspace · Pilot M1–M2</span></div>
+  <div class="top-r">
+    <div class="ts">Total <b id="tsd">0</b>/<b id="tst">0</b> &nbsp; Overall <b id="tsp">0</b>%</div>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">中文</button>
+    <div class="role-pill"><div class="rp-dot"></div><div class="rp-name" id="rpName">PM</div></div>
   </div>
 </div>
 
-<div class="app" id="app">
-  <div class="topbar">
-    <div class="brand">ARIA · 新智汇 <span>SOP Workspace · Pilot M1–M2</span></div>
-    <div class="top-right">
-      <div class="ts">Total <b id="ts-d">0</b>/<b id="ts-t">0</b> &nbsp; Overall <b id="ts-p">0</b>%</div>
-      <div class="lang-toggle" id="langBtn" onclick="toggleLang()">中文</div>
-      <div class="user-pill"><div class="u-dot"></div><div class="u-name" id="uName"></div></div>
-      <div class="logout" id="logoutBtn" onclick="doLogout()">Sign out</div>
-    </div>
-  </div>
-  <div class="layout">
-    <div class="sidebar" id="sidebar"></div>
-    <div class="main" id="main"></div>
-  </div>
+<div class="layout">
+  <div class="sidebar" id="sb"></div>
+  <div class="main" id="mn"></div>
 </div>
 
-<div class="modal-overlay" id="sopModal">
+<div class="modal-ov" id="sm">
   <div class="modal">
-    <div class="modal-title" id="sopModalTitle">Add SOP Step</div>
-    <div class="field"><label>Step title *</label><input id="mTitle" placeholder="e.g. Define project charter and scope" /></div>
-    <div class="field"><label>Section</label><select id="mSec"></select></div>
-    <div class="field"><label>Responsible parties</label><input id="mWho" placeholder="e.g. PM + BA + Client Sponsor" /></div>
-    <div class="field"><label>Description</label><textarea id="mDesc" placeholder="What does this step involve?"></textarea></div>
-    <div class="field"><label>Checklist items (one per line)</label><textarea id="mCl" placeholder="Step 1&#10;Step 2&#10;Step 3" style="min-height:80px;"></textarea></div>
-    <div class="field"><label>Key deliverables (comma separated)</label><input id="mDel" placeholder="e.g. Project Charter v1.0, Risk Register" /></div>
-    <div class="modal-actions">
-      <button class="modal-btn modal-cancel" id="modal-cancel-btn" onclick="closeSopModal()">Cancel</button>
-      <button class="modal-btn modal-save" id="modal-save-btn" onclick="saveSopModal()">Save Step</button>
+    <div class="modal-title" id="smt">Add SOP Step</div>
+    <div class="field"><label id="lt">Step title *</label><input id="mT" placeholder="e.g. Define project charter"/></div>
+    <div class="field"><label id="ls">Section</label><select id="mS"></select></div>
+    <div class="field"><label id="lw">Responsible parties</label><input id="mW" placeholder="e.g. PM + BA"/></div>
+    <div class="field"><label id="ld">Description</label><textarea id="mD" placeholder="What does this step involve?"></textarea></div>
+    <div class="field"><label id="lc">Checklist (one per line)</label><textarea id="mC" style="min-height:65px;" placeholder="Step 1&#10;Step 2"></textarea></div>
+    <div class="field"><label id="ldl">Deliverables (comma separated)</label><input id="mDl" placeholder="e.g. Charter v1.0, Risk Register"/></div>
+    <div class="modal-acts">
+      <button class="mb mc" onclick="cSM()">Cancel</button>
+      <button class="mb ms" onclick="saveSM()">Save Step</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="secModal">
+<div class="modal-ov" id="secm">
   <div class="modal">
-    <div class="modal-title" id="secModalTitle2">Add New Section</div>
-    <div class="field"><label id="lbl-secname">Section name *</label><input id="secName" placeholder="e.g. Risk Management" /></div>
-    <div class="modal-actions">
-      <button class="modal-btn modal-cancel" id="sec-cancel-btn" onclick="document.getElementById('secModal').classList.remove('show')">Cancel</button>
-      <button class="modal-btn modal-save" id="sec-save-btn" onclick="saveSection()">Add Section</button>
+    <div class="modal-title" id="secmt">Add New Section</div>
+    <div class="field"><label id="lsn">Section name *</label><input id="secn" placeholder="e.g. Risk Management"/></div>
+    <div class="modal-acts">
+      <button class="mb mc" onclick="document.getElementById('secm').classList.remove('show')">Cancel</button>
+      <button class="mb ms" onclick="saveSec()">Add Section</button>
     </div>
   </div>
 </div>
@@ -233,6 +195,7 @@ const ROLES=[
   {id:'qa',icon:'T',name:'Tester',full:'QA Tester',color:'#065F46',light:'#ECFDF5',pw:'qa2024',sub:'Owns quality assurance — test strategy, SIT execution, automation, and UAT sign-off.',stack:[{l:'Test Strategy',b:'#065F46',f:'#fff'},{l:'SIT / UAT',b:'#ECFDF5',f:'#065F46'},{l:'Automation',b:'#ECFDF5',f:'#065F46'}],pain:['Late defect discovery','Manual test creation','Regression gaps','UAT failures'],members:['QA Lead','Tester']},
   {id:'ma',icon:'M',name:'MA',full:'Maintenance Engineer',color:'#7C2D12',light:'#FFF7ED',pw:'ma2024',sub:'Ensures platform reliability through monitoring, incident response, RCA, and change management.',stack:[{l:'CloudWatch',b:'#7C2D12',f:'#fff'},{l:'Incident Response',b:'#FFF7ED',f:'#7C2D12'},{l:'Change Mgmt',b:'#FFF7ED',f:'#7C2D12'}],pain:['Reactive firefighting','Poor incident docs','Repeat incidents','No change discipline'],members:['MA Lead','MA Engineer']}
 ];
+
 
 const DS={
 pm:[
@@ -313,6 +276,7 @@ function ckGet(rid,sid,ci){try{return JSON.parse(localStorage.getItem('aria_ck_'
 function ckSet(rid,sid,ci,v){const k='aria_ck_'+rid+'_'+sid;let o={};try{o=JSON.parse(localStorage.getItem(k)||'{}');}catch(e){}o[ci]=v;localStorage.setItem(k,JSON.stringify(o));}
 
 // LOGIN
+
 const I18N={
   en:{
     langBtn:'中文', brandSub:'SOP Workspace · Pilot M1–M2',
@@ -411,145 +375,253 @@ Step 3',
     deliveryRoles:'交付角色',
   }
 };
-let LANG=localStorage.getItem('aria_lang')||'en';
-function T(k,vars){let s=(I18N[LANG]||I18N.en)[k]||k;if(vars)Object.keys(vars).forEach(v=>{s=s.replace('{'+v+'}',vars[v]);});return s;}
-(function buildLogin(){
-  document.getElementById('roleGrid').innerHTML=ROLES.map(r=>`<div class="role-opt" id="ro_${r.id}" onclick="selRole('${r.id}')"><div class="ro-icon">${r.icon}</div><div class="ro-name">${r.name}</div><div class="ro-full">${r.full}</div></div>`).join('');
-  document.getElementById('pwInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-  applyLangStatic();
-})();
 
-function selRole(id){SELID=id;document.querySelectorAll('.role-opt').forEach(el=>{el.style.borderColor='';el.style.background='';});const r=ROLES.find(x=>x.id===id);const el=document.getElementById('ro_'+id);el.style.borderColor=r.color;el.style.background=r.light;document.getElementById('pwInput').focus();document.getElementById('loginErr').textContent='';}
-function doLogin(){if(!SELID){document.getElementById('loginErr').textContent=T('selectRoleErr');return;}const pw=document.getElementById('pwInput').value;const r=ROLES.find(x=>x.id===SELID);if(pw!==r.pw){document.getElementById('loginErr').textContent=T('wrongPw');return;}CUR=r;UNAME=r.name;document.getElementById('loginWrap').style.display='none';document.getElementById('app').style.display='block';document.getElementById('uName').textContent=r.name+T('agentSuffix');alog(T('signIn'));rAll(r.id);}
-function doLogout(){alog(T('signOut'));CUR=null;UNAME='';SELID=null;document.getElementById('loginWrap').style.display='flex';document.getElementById('app').style.display='none';document.getElementById('pwInput').value='';document.getElementById('loginErr').textContent='';document.querySelectorAll('.role-opt').forEach(el=>{el.style.borderColor='';el.style.background='';});}
+let LANG = localStorage.getItem('aria_lang') || 'en';
+let CUR_ROLE = 'PM';
+let CUR_AID = 'pm';
+let MR = null, ME = null;
+const OP = new Set();
 
-// RENDER
-function rAll(aid){rSB(aid);rMain(aid);}
-
-function rSB(aid){
-  const g=gstat();
-  document.getElementById('ts-d').textContent=g.d;document.getElementById('ts-t').textContent=g.t;document.getElementById('ts-p').textContent=g.p;
-  const wip=ROLES.reduce((a,r)=>a+gs(r.id).filter(s=>s.s==='wip').length,0);
-  const todo=ROLES.reduce((a,r)=>a+gs(r.id).filter(s=>s.s==='todo').length,0);
-  document.getElementById('sidebar').innerHTML=`<div class="sb-head">${T('deliveryRoles')}</div>
-  ${ROLES.map(r=>{const{d,t,p}=pct(r.id);return`<div class="rb ${aid===r.id?'active':''}" onclick="rAll('${r.id}')" style="${aid===r.id?'border-left-color:'+r.color+';':''}"><div class="rb-icon" style="background:${r.light};color:${r.color};font-size:11px;font-weight:700;">${r.icon}</div><div class="rb-info"><div class="rb-name" style="${aid===r.id?'color:'+r.color+';':''}">${r.name}</div><div class="rb-pct">${d}/${t} · ${p}%</div><div class="rb-bar"><div class="rb-fill" style="width:${p}%;background:${r.color};"></div></div></div></div>`;}).join('')}
-  <div class="sb-div"></div>
-  <div class="sb-sum"><div style="font-size:10px;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;">${T('overallProgress')}</div>
-  <div class="sg"><div class="sc"><div class="sc-n" style="color:var(--navy);">${g.t}</div><div class="sc-l">${T('steps')}</div></div><div class="sc"><div class="sc-n" style="color:var(--green);">${g.d}</div><div class="sc-l">${T('completed')}</div></div><div class="sc"><div class="sc-n" style="color:var(--amber);">${wip}</div><div class="sc-l">${T('inProgress')}</div></div><div class="sc"><div class="sc-n" style="color:var(--subtle);">${todo}</div><div class="sc-l">${T('toDo')}</div></div></div></div>`;}
-
-function rMain(aid){
-  const r=ROLES.find(x=>x.id===aid);const sops=gs(aid);
-  const{d,t,p}=pct(aid);const wip=sops.filter(s=>s.s==='wip').length;const todo=sops.filter(s=>s.s==='todo').length;
-  const secs=[...new Set(sops.map(s=>s.sec))];const log=glog().slice(0,4);
-  const canEdit=CUR&&CUR.id===aid;
-
-  const rh=`<div class="rh" style="border-left:4px solid ${r.color};"><div class="rh-av" style="background:${r.light};">${r.icon}</div><div style="flex:1;"><div class="rh-name" style="color:${r.color};">${r.full}</div><div class="rh-sub">${r.sub}</div><div class="stk">${r.stack.map(s=>`<span class="stk-tag" style="background:${s.b};color:${s.f};">${s.l}</span>`).join('')}</div></div></div>`;
-
-  const tb=`<div class="toolbar">${canEdit?`<button class="tbtn primary" onclick="openAdd('${aid}')">+ Add SOP Step</button><span class="help-wrap"><span class="help-btn">i</span><span class="help-tip" style="top:auto;bottom:130%;transform:none;left:0;">Add a new SOP step to this role's workspace. Fill in the title, section, checklist items, and key deliverables.</span></span><button class="tbtn" onclick="openSec('${aid}')">+ Add Section</button><span class="help-wrap"><span class="help-btn">i</span><span class="help-tip" style="top:auto;bottom:130%;transform:none;left:0;">Add a new section category to organise your SOP steps. For example: Planning, Execution, Closure.</span></span>`:`<span class="view-note">${T('viewMode',{role:r.name})}</span>`}</div>`;
-
-  const stats=`<div class="stats"><div class="stat"><div class="stat-n" style="color:${r.color};">${t}</div><div class="stat-l">${T('sopSteps')}</div></div><div class="stat"><div class="stat-n" style="color:var(--green);">${d}</div><div class="stat-l">${T('completed')}</div></div><div class="stat"><div class="stat-n" style="color:var(--amber);">${wip}</div><div class="stat-l">${T('inProgress')}</div></div><div class="stat"><div class="stat-n" style="color:var(--subtle);">${todo}</div><div class="stat-l">${T('toDo')}</div></div></div>`;
-  const pb=`<div class="pb"><div class="pb-m"><span style="color:${r.color};">${r.full} — ${T('completion')}</span><span>${d}/${t} · ${p}%</span></div><div class="pb-t"><div class="pb-f" style="width:${p}%;background:${r.color};"></div></div></div>`;
-  const actVis=localStorage.getItem('aria_act_vis')!=='0';
-  const act=log.length?`<div class="activity"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${actVis?'6px':'0'};"><div class="act-title" style="margin-bottom:0;">${T('recentActivity')} <span class="help-wrap"><span class="help-btn">i</span><span class="help-tip" style="top:auto;bottom:130%;transform:none;left:0;">${T('helpActivity')}</span></span></div><div style="display:flex;gap:5px;">${actVis&&canEdit?`<button onclick="event.stopPropagation();clearLog('${aid}')" style="font-size:10px;padding:2px 8px;border-radius:5px;border:0.5px solid #FECACA;background:var(--surface);color:var(--red);cursor:pointer;">${T('clear')}</button>`:''}<button onclick="toggleAct('${aid}')" style="font-size:10px;padding:2px 8px;border-radius:5px;border:0.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;">${actVis?T('hide'):T('show')}</button></div></div>${actVis?`<div class="act-list">${log.map(a=>`<div class="act-item"><div class="act-dot"></div><span><strong style="color:var(--text);">${a.who}</strong> — ${a.msg}</span><span class="act-time">${a.t}</span></div>`).join('')}</div>`:''}</div>`:'';
-  const pain=`<div class="pain"><span class="pl">${T('painLabel')}</span>${r.pain.map(p=>`<span class="pt">${p}</span>`).join('')}</div>`;
-  const stabs=secs.length?`<div class="stabs">${secs.map(s=>`<span class="stab" style="background:${r.color};">${s}</span>`).join('')}</div>`:'';
-
-  const cards=sops.length?sops.map((sop,i)=>{
-    const op=OPEN.has(aid+'_'+i);
-    const bc=sop.s==='done'?'b-done':sop.s==='wip'?'b-wip':'b-todo';
-    const bl=sop.s==='done'?T('done'):sop.s==='wip'?T('wip'):T('todo');
-    const ckD=(sop.cl||[]).filter((_,ci)=>ckGet(aid,sop.id,ci)).length;
-    const tasks=sop.tasks||[];const notes=sop.notes||[];
-
-    const ckHtml=(sop.cl&&sop.cl.length)?`<div class="bl">Checklist <span class="help-wrap"><span class="help-btn">i</span><span class="help-tip">Standard steps that define how this SOP should be executed. These are the best-practice requirements — tick each one as you complete it.</span></span></div><div class="ck-list">${sop.cl.map((c,ci)=>{const ck=ckGet(aid,sop.id,ci);return`<div class="ck-item"><div class="ckb ${ck?'on':''}" onclick="tCk('${aid}','${sop.id}',${ci})">${ck?'✓':''}</div><span style="${ck?'text-decoration:line-through;opacity:.5;':''}">${c}</span></div>`;}).join('')}</div>`:'';
-
-    const taskHtml=`<div style="margin-bottom:9px;"><div class="bl">${T('tasks')} (${tasks.filter(t=>t.done).length}/${tasks.length}) ${hlp(T('helpTasks'))}</div>${tasks.length?`<div class="task-list">${tasks.map((task,ti)=>`<div class="task-item" data-rid="${aid}" data-sid="${sop.id}" data-ti="${ti}"><div class="task-cb ${task.done?'on':''}" onclick="tTask('${aid}','${sop.id}',${ti})">${task.done?'✓':''}</div><div class="task-txt ${task.done?'done':''}">${task.text}</div>${task.owner?`<span class="task-owner">${task.owner}</span>`:''} ${canEdit?`<span class="del-icon" onclick="dTask('${aid}','${sop.id}',${ti})">✕</span>`:''}` + '</div>').join('')}</div>`:`<div style="font-size:10px;color:var(--subtle);margin-bottom:4px;">${T('noTasks')}</div>`}${canEdit?`<div class="add-row"><input id="ti_${sop.id}" placeholder="${T('addTask')}" /><select id="to_${sop.id}"><option value="">${T('assign')}</option>${(r.members||[]).map(m=>`<option value="${m}">${m}</option>`).join('')}</select><button type="button" id="abtn_${sop.id}">` + T('add') + `</button></div>`:''}</div>`;
-    const noteHtml=`<div style="margin-bottom:9px;"><div class="bl">${T('notes')} (${notes.length}) ${hlp(T('helpNotes'))}</div>${notes.length?`<div class="note-list">${notes.map((n,ni)=>`<div class="note-item"><div style="flex:1;"><div style="font-size:11px;">${n.text}</div><div class="note-meta">${n.who} · ${n.t}</div></div>${canEdit?`<span class="del-icon" onclick="dNote('${aid}','${sop.id}',${ni})">✕</span>`:''}</div>`).join('')}</div>`:`<div style="font-size:10px;color:var(--subtle);margin-bottom:4px;">${T('noNotes')}</div>`}${canEdit?`<div class="add-row"><textarea id="ni_${sop.id}" placeholder="${T('addNote')}"></textarea><button type="button" id="nbtn_${sop.id}">` + T('add') + `</button></div>`:''}</div>`;
-    const delHtml=(sop.del&&sop.del.length)?`<div class="bl">Deliverables <span class="help-wrap"><span class="help-btn">i</span><span class="help-tip">The key documents or outputs this SOP step should produce. These are the tangible artefacts that prove the step was completed — important for client sign-off and BOI evidence.</span></span></div><div class="del-row">${sop.del.map(d=>`<span class="del-tag" style="background:${r.light};color:${r.color};">${d}</span>`).join('')}</div>`:'';
-
-    const acts=`<div class="card-acts"><button class="ca-btn" style="${sop.s==='done'?'background:'+r.color+';color:#fff;border-color:'+r.color+';':''}" onclick="setSt('${aid}','${sop.id}','done')">✓ ${T('done')}</button><button class="ca-btn" style="${sop.s==='wip'?'background:var(--amber);color:#fff;border-color:var(--amber);':''}" onclick="setSt('${aid}','${sop.id}','wip')">${T('wip')}</button><button class="ca-btn" onclick="setSt('${aid}','${sop.id}','todo')">${T('reset')}</button>${canEdit?`<button class="ca-btn" onclick="openEdit('${aid}',${i})" style="margin-left:auto;">${T('editStep')}</button><button class="ca-btn del-btn" onclick="dSop('${aid}','${sop.id}')">${T('deleteStep')}</button>`:''}</div>`;
-
-    const editBtn=canEdit?`<button class="ca-btn" onclick="event.stopPropagation();openEdit('${aid}',${i})" style="font-size:10px;padding:3px 8px;margin-right:4px;">✏</button>`:'';
-    return`<div class="card"><div class="ch" onclick="tCard('${aid}',${i})"><div class="sn" style="background:${r.color};">${i+1}</div><div class="si"><div class="st2">${sop.t}</div><div class="sw">${sop.w||''} · ${sop.sec} · ${ckD}/${(sop.cl||[]).length} checked · ${tasks.filter(t=>t.done).length}/${tasks.length} tasks</div></div><div class="sr">${editBtn}<span class="badge ${bc}">${bl}</span><span class="chev ${op?'op':''}">▶</span></div></div><div class="cb ${op?'op':''}"><div class="bl">Overview</div><div class="bt">${sop.desc||''}</div>${ckHtml}${delHtml}${taskHtml}${noteHtml}${acts}</div></div>`;
-  }).join(''):`<div class="empty-state">${T('noSopSteps')}${canEdit?T('clickToAdd'):''}</div>`;
-
-  document.getElementById('main').innerHTML=rh+tb+stats+pb+act+pain+stabs+`<div class="cards">${cards}</div>`;}
-
-// INTERACTIONS
-function tCard(rid,i){const k=rid+'_'+i;OPEN.has(k)?OPEN.delete(k):OPEN.add(k);rMain(rid);}
-function tCk(rid,sid,ci){const v=!ckGet(rid,sid,ci);ckSet(rid,sid,ci,v);alog('Updated checklist');rAll(rid);}
-function setSt(rid,sid,st){const s=gs(rid);const sop=s.find(x=>x.id===sid);if(sop){sop.s=st;ss(rid,s);alog(`Marked "${sop.t.substring(0,25)}..." as ${st}`);}rAll(rid);}
-function tTask(rid,sid,ti){const s=gs(rid);const sop=s.find(x=>x.id===sid);if(sop&&sop.tasks[ti]){sop.tasks[ti].done=!sop.tasks[ti].done;ss(rid,s);alog(`Updated task`);}rAll(rid);}
-function aTask(rid,sid){const inp=document.getElementById('ti_'+sid);const own=document.getElementById('to_'+sid);if(!inp||!inp.value.trim())return;const s=gs(rid);const sop=s.find(x=>x.id===sid);if(sop){if(!sop.tasks)sop.tasks=[];sop.tasks.push({text:inp.value.trim(),owner:own?own.value:'',done:false,who:UNAME,t:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})});ss(rid,s);alog(`Added task: "${inp.value.trim()}"`);inp.value='';}rAll(rid);}
-function dTask(rid,sid,ti){const s=gs(rid);const sop=s.find(x=>x.id===sid);if(sop&&confirm('Delete this task?')){sop.tasks.splice(ti,1);ss(rid,s);alog('Deleted a task');}rAll(rid);}
-function aNote(rid,sid){const ta=document.getElementById('ni_'+sid);if(!ta||!ta.value.trim())return;const s=gs(rid);const sop=s.find(x=>x.id===sid);if(sop){if(!sop.notes)sop.notes=[];sop.notes.push({text:ta.value.trim(),who:UNAME,t:new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})});ss(rid,s);alog(`Added note to "${sop.t.substring(0,20)}..."`);ta.value='';}rAll(rid);}
-function dNote(rid,sid,ni){const s=gs(rid);const sop=s.find(x=>x.id===sid);if(sop&&confirm('Delete this note?')){sop.notes.splice(ni,1);ss(rid,s);alog('Deleted a note');}rAll(rid);}
-function dSop(rid,sid){if(!confirm(T('deleteSopConfirm')))return;const s=gs(rid);const i=s.findIndex(x=>x.id===sid);if(i>-1){alog(`Deleted SOP step: "${s[i].t.substring(0,25)}..."`);s.splice(i,1);ss(rid,s);}OPEN.clear();rAll(rid);}
-
-// MODALS
-function openAdd(rid){M_ROLE=rid;M_EDIT=null;const s=gs(rid);const secs=[...new Set(s.map(x=>x.sec))];document.getElementById('sopModalTitle').textContent=T('sopModalAddTitle');document.getElementById('mTitle').value='';document.getElementById('mWho').value='';document.getElementById('mDesc').value='';document.getElementById('mCl').value='';document.getElementById('mDel').value='';document.getElementById('mSec').innerHTML=secs.map(s=>`<option value="${s}">${s}</option>`).join('');document.getElementById('sopModal').classList.add('show');}
-function openEdit(rid,idx){M_ROLE=rid;const s=gs(rid);const sop=s[idx];M_EDIT=sop.id;const secs=[...new Set(s.map(x=>x.sec))];document.getElementById('sopModalTitle').textContent=T('sopModalEditTitle');document.getElementById('mTitle').value=sop.t;document.getElementById('mWho').value=sop.w||'';document.getElementById('mDesc').value=sop.desc||'';document.getElementById('mCl').value=(sop.cl||[]).join('\n');document.getElementById('mDel').value=(sop.del||[]).join(', ');document.getElementById('mSec').innerHTML=secs.map(s=>`<option value="${s}" ${s===sop.sec?'selected':''}>${s}</option>`).join('');document.getElementById('sopModal').classList.add('show');}
-function closeSopModal(){document.getElementById('sopModal').classList.remove('show');M_ROLE=null;M_EDIT=null;}
-function saveSopModal(){const title=document.getElementById('mTitle').value.trim();if(!title){alert('Step title is required.');return;}const s=gs(M_ROLE);const sec=document.getElementById('mSec').value||'General';const who=document.getElementById('mWho').value.trim();const desc=document.getElementById('mDesc').value.trim();const cl=document.getElementById('mCl').value.split('\n').map(x=>x.trim()).filter(Boolean);const del=document.getElementById('mDel').value.split(',').map(x=>x.trim()).filter(Boolean);if(M_EDIT){const sop=s.find(x=>x.id===M_EDIT);if(sop){sop.t=title;sop.sec=sec;sop.w=who;sop.desc=desc;sop.cl=cl;sop.del=del;alog(`Edited: "${title.substring(0,25)}..."`);}else{return;}}else{s.push({id:M_ROLE+'_'+Date.now(),sec,t:title,w:who,s:'todo',desc,cl,del,tasks:[],notes:[]});alog(`Added new SOP: "${title.substring(0,25)}..."`);}ss(M_ROLE,s);closeSopModal();rAll(M_ROLE);}
-function openSec(rid){M_ROLE=rid;document.getElementById('secName').value='';document.getElementById('secModal').classList.add('show');}
-function saveSection(){const name=document.getElementById('secName').value.trim();if(!name){alert('Section name is required.');return;}const s=gs(M_ROLE);s.push({id:M_ROLE+'_'+Date.now(),sec:name,t:'New step — click Edit to update',w:'',s:'todo',desc:'Add description for this step.',cl:[],del:[],tasks:[],notes:[]});ss(M_ROLE,s);alog(`Added section: "${name}"`);document.getElementById('secModal').classList.remove('show');rAll(M_ROLE);}
-document.getElementById('sopModal').addEventListener('click',function(e){if(e.target===this)closeSopModal();});
-document.getElementById('secModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
-
-// Event delegation for dynamically rendered add-task and add-note buttons
-document.addEventListener('click',function(e){
-  // Add task button
-  if(e.target&&e.target.id&&e.target.id.startsWith('abtn_')){
-    const sid=e.target.id.replace('abtn_','');
-    const rid=CUR?CUR.id:null;if(!rid)return;
-    aTask(rid,sid);
-  }
-  // Add note button
-  if(e.target&&e.target.id&&e.target.id.startsWith('nbtn_')){
-    const sid=e.target.id.replace('nbtn_','');
-    const rid=CUR?CUR.id:null;if(!rid)return;
-    aNote(rid,sid);
-  }
-});
-// Enter key on task input
-document.addEventListener('keydown',function(e){
-  if(e.key==='Enter'&&e.target&&e.target.id&&e.target.id.startsWith('ti_')){
-    const sid=e.target.id.replace('ti_','');
-    const rid=CUR?CUR.id:null;if(!rid)return;
-    aTask(rid,sid);
-  }
-});
-function toggleAct(rid){const v=localStorage.getItem('aria_act_vis')!=='0';localStorage.setItem('aria_act_vis',v?'0':'1');rMain(rid);}
-function clearLog(rid){if(!confirm(T('clearLogConfirm')))return;localStorage.removeItem('aria_log');alog(T('actLogCleared'));rAll(rid);}
-
-// ── i18n ──
-function toggleLang(){LANG=LANG==='en'?'zh':'en';localStorage.setItem('aria_lang',LANG);applyLangStatic();if(CUR)rAll(CUR.id);}
-function applyLangStatic(){
-  const btn=document.getElementById('langBtn');if(btn)btn.textContent=T('langBtn');
-  const lo=document.getElementById('logoutBtn');if(lo)lo.textContent=T('signOut');
-  const sub=document.querySelector('.brand span');if(sub)sub.textContent=T('brandSub');
-  const si=document.querySelector('.login-btn');if(si)si.textContent=T('signIn');
-  const ls=document.getElementById('loginSubText');if(ls)ls.textContent=T('selectRole');
-  const hints=document.getElementById('loginHintText');
-  if(hints)hints.innerHTML=T('contactHint')+'<br>'+T('defaultPwHint');
-  const lbe=document.getElementById('loginBtnEl');if(lbe)lbe.textContent=T('signIn');
-  // modal labels
-  const ml=['mTitleLabel','mSecLabel','mWhoLabel','mDescLabel','mClLabel','mDelLabel'];
-  const mids=['lbl-title','lbl-sec','lbl-who','lbl-desc','lbl-cl','lbl-del'];
-  mids.forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=T(ml[i]);});
-  const mti=document.getElementById('mTitle');if(mti)mti.placeholder=T('mTitlePh');
-  const mwh=document.getElementById('mWho');if(mwh)mwh.placeholder=T('mWhoPh');
-  const mde=document.getElementById('mDesc');if(mde)mde.placeholder=T('mDescPh');
-  const mcl=document.getElementById('mCl');if(mcl)mcl.placeholder=T('mClPh');
-  const mde2=document.getElementById('mDel');if(mde2)mde2.placeholder=T('mDelPh');
-  const mca=document.getElementById('modal-cancel-btn');if(mca)mca.textContent=T('cancel');
-  const msa=document.getElementById('modal-save-btn');if(msa)msa.textContent=T('saveStep');
-  const smt=document.getElementById('secModalTitle2');if(smt)smt.textContent=T('secModalTitle');
-  const snl=document.getElementById('lbl-secname');if(snl)snl.textContent=T('secNameLabel');
-  const snp=document.getElementById('secName');if(snp)snp.placeholder=T('secNamePh');
-  const sc2=document.getElementById('sec-cancel-btn');if(sc2)sc2.textContent=T('cancel');
-  const ss2=document.getElementById('sec-save-btn');if(ss2)ss2.textContent=T('addSection');
+function T(k, v) {
+  let s = (I18N[LANG] || I18N.en)[k] || k;
+  if (v) Object.keys(v).forEach(x => { s = s.replace('{' + x + '}', v[x]); });
+  return s;
 }
+function gs(r) { try { const d = localStorage.getItem('aria_sop_' + r); if (d) return JSON.parse(d); } catch (e) {} return JSON.parse(JSON.stringify(DS[r] || [])); }
+function ss2(r, s) { try { localStorage.setItem('aria_sop_' + r, JSON.stringify(s)); } catch (e) {} }
+function glog() { try { return JSON.parse(localStorage.getItem('aria_log') || '[]'); } catch (e) { return []; } }
+function alog(m) { const l = glog(); l.unshift({ m, w: CUR_ROLE, t: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) }); if (l.length > 20) l.length = 20; try { localStorage.setItem('aria_log', JSON.stringify(l)); } catch (e) {} }
+function pct(r) { const s = gs(r); const d = s.filter(x => x.s === 'done').length; return { d, t: s.length, p: s.length ? Math.round(d / s.length * 100) : 0 }; }
+function gst() { const d = ROLES.reduce((a, r) => a + gs(r.id).filter(s => s.s === 'done').length, 0); const t = ROLES.reduce((a, r) => a + gs(r.id).length, 0); return { d, t, p: t ? Math.round(d / t * 100) : 0 }; }
+function ckg(r, s, c) { try { return JSON.parse(localStorage.getItem('aria_ck_' + r + '_' + s) || '{}')[c]; } catch (e) { return false; } }
+function cks(r, s, c, v) { const k = 'aria_ck_' + r + '_' + s; let o = {}; try { o = JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) {} o[c] = v; localStorage.setItem(k, JSON.stringify(o)); }
+
+function updTS() { const g = gst(); document.getElementById('tsd').textContent = g.d; document.getElementById('tst').textContent = g.t; document.getElementById('tsp').textContent = g.p + '%'; }
+
+function toggleLang() { LANG = LANG === 'en' ? 'zh' : 'en'; localStorage.setItem('aria_lang', LANG); apLS(); rAll(CUR_AID); }
+
+function apLS() {
+  document.getElementById('langBtn').textContent = T('langBtn') || (LANG === 'en' ? '中文' : 'EN');
+  document.getElementById('bsub').textContent = LANG === 'en' ? 'SOP Workspace · Pilot M1–M2' : 'SOP 协作工作区 · 试点 M1–M2';
+  document.getElementById('lt').textContent = LANG === 'en' ? 'Step title *' : '步骤标题 *';
+  document.getElementById('ls').textContent = LANG === 'en' ? 'Section' : '所属板块';
+  document.getElementById('lw').textContent = LANG === 'en' ? 'Responsible parties' : '负责方';
+  document.getElementById('ld').textContent = LANG === 'en' ? 'Description' : '描述';
+  document.getElementById('lc').textContent = LANG === 'en' ? 'Checklist (one per line)' : '清单项（每行一条）';
+  document.getElementById('ldl').textContent = LANG === 'en' ? 'Deliverables (comma separated)' : '关键交付物（逗号分隔）';
+  document.getElementById('secmt').textContent = LANG === 'en' ? 'Add New Section' : '新增板块';
+  document.getElementById('lsn').textContent = LANG === 'en' ? 'Section name *' : '板块名称 *';
+}
+
+function rAll(aid) {
+  CUR_AID = aid;
+  CUR_ROLE = ROLES.find(x => x.id === aid)?.name || 'User';
+  document.getElementById('rpName').textContent = CUR_ROLE;
+  rSB(aid);
+  rMN(aid);
+  updTS();
+}
+
+function rSB(aid) {
+  const g = gst();
+  const wip = ROLES.reduce((a, r) => a + gs(r.id).filter(s => s.s === 'wip').length, 0);
+  const todo = ROLES.reduce((a, r) => a + gs(r.id).filter(s => s.s === 'todo').length, 0);
+  document.getElementById('sb').innerHTML = `<div class="sb-head">${LANG === 'en' ? 'Delivery Roles' : '交付角色'}</div>` +
+    ROLES.map(r => {
+      const { d, t, p } = pct(r.id);
+      return `<div class="rb ${aid === r.id ? 'active' : ''}" onclick="rAll('${r.id}')" style="${aid === r.id ? 'border-left-color:' + r.color + ';' : ''}">
+        <div class="rb-ic" style="background:${r.light};color:${r.color};font-size:11px;font-weight:700;">${r.icon}</div>
+        <div class="rb-inf">
+          <div class="rb-nm" style="${aid === r.id ? 'color:' + r.color + ';' : ''}">${r.name}</div>
+          <div class="rb-pc">${d}/${t} · ${p}%</div>
+          <div class="rb-bar"><div class="rb-fill" style="width:${p}%;background:${r.color};"></div></div>
+        </div>
+      </div>`;
+    }).join('') +
+    `<div class="sb-div"></div>
+    <div class="sb-sum">
+      <div style="font-size:10px;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;">${LANG === 'en' ? 'Overall' : '整体'}</div>
+      <div class="sg">
+        <div class="sc"><div class="sc-n" style="color:var(--navy);">${g.t}</div><div class="sc-l">${LANG === 'en' ? 'Steps' : '步骤'}</div></div>
+        <div class="sc"><div class="sc-n" style="color:var(--green);">${g.d}</div><div class="sc-l">${LANG === 'en' ? 'Done' : '完成'}</div></div>
+        <div class="sc"><div class="sc-n" style="color:var(--amber);">${wip}</div><div class="sc-l">${LANG === 'en' ? 'WIP' : '进行中'}</div></div>
+        <div class="sc"><div class="sc-n" style="color:var(--subtle);">${todo}</div><div class="sc-l">${LANG === 'en' ? 'To do' : '待处理'}</div></div>
+      </div>
+    </div>`;
+}
+
+function hlp(tip) { return `<span class="hw"><span class="hic">i</span><span class="htip">${tip}</span></span>`; }
+
+function rMN(aid) {
+  const r = ROLES.find(x => x.id === aid);
+  const sops = gs(aid);
+  const { d, t, p } = pct(aid);
+  const wip = sops.filter(s => s.s === 'wip').length;
+  const todo = sops.filter(s => s.s === 'todo').length;
+  const secs = [...new Set(sops.map(s => s.sec))];
+  const log = glog().slice(0, 5);
+  const av = localStorage.getItem('aria_act') !== '0';
+  const EN = LANG === 'en';
+
+  const rh = `<div class="rh" style="border-left:4px solid ${r.color};">
+    <div class="rh-av" style="background:${r.light};">${r.icon}</div>
+    <div style="flex:1;">
+      <div class="rh-nm" style="color:${r.color};">${r.full}</div>
+      <div class="rh-sub">${r.sub}</div>
+      <div class="stk">${r.stack.map(s => `<span class="stk-t" style="background:${s.b};color:${s.f};">${s.l}</span>`).join('')}</div>
+    </div>
+  </div>`;
+
+  const tb = `<div class="tb">
+    <button class="tbtn pr" onclick="oAdd('${aid}')">${EN ? '+ Add SOP Step' : '+ 新增 SOP 步骤'}</button>
+    ${hlp(EN ? 'Add a new SOP step — title, section, checklist, and deliverables.' : '新增一个 SOP 步骤，填写标题、板块、清单和交付物。')}
+    <button class="tbtn" onclick="oSec('${aid}')">${EN ? '+ Add Section' : '+ 新增板块'}</button>
+    ${hlp(EN ? 'Add a new section to organise SOP steps.' : '新增一个板块，用于分类组织 SOP 步骤。')}
+  </div>`;
+
+  const stats = `<div class="stats">
+    <div class="stat"><div class="stat-n" style="color:${r.color};">${t}</div><div class="stat-l">${EN ? 'SOP steps' : 'SOP 步骤'}</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--green);">${d}</div><div class="stat-l">${EN ? 'Completed' : '已完成'}</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--amber);">${wip}</div><div class="stat-l">${EN ? 'In progress' : '进行中'}</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--subtle);">${todo}</div><div class="stat-l">${EN ? 'To do' : '待处理'}</div></div>
+  </div>`;
+
+  const pb = `<div class="pb">
+    <div class="pb-m"><span style="color:${r.color};">${r.full} — ${EN ? 'completion' : '完成度'}</span><span>${d}/${t} · ${p}%</span></div>
+    <div class="pb-t"><div class="pb-f" style="width:${p}%;background:${r.color};"></div></div>
+  </div>`;
+
+  const act = log.length ? `<div class="act-box">
+    <div class="act-hd">
+      <div class="act-ttl">${EN ? 'Recent activity' : '最近操作'} ${hlp(EN ? 'Log of all actions taken in this workspace. Can be hidden or cleared.' : '团队成员的所有操作日志，可隐藏或清空。')}</div>
+      <div class="act-btns">
+        <button class="asmb r" onclick="clrLog('${aid}')">${EN ? 'Clear' : '清空'}</button>
+        <button class="asmb" onclick="togAct('${aid}')">${av ? (EN ? 'Hide' : '隐藏') : (EN ? 'Show' : '显示')}</button>
+      </div>
+    </div>
+    ${av ? `<div class="act-list">${log.map(a => `<div class="act-it"><div class="act-dot"></div><span><b style="color:var(--text);font-weight:600;">${a.w}</b> — ${a.m}</span><span class="act-tm">${a.t}</span></div>`).join('')}</div>` : ''}
+  </div>` : '';
+
+  const pain = `<div class="pain-row"><span class="pl">${EN ? 'Pain points:' : '痛点：'}</span>${r.pain.map(p => `<span class="pt">${p}</span>`).join('')}</div>`;
+  const stabs = secs.length ? `<div class="stabs">${secs.map(s => `<span class="stab" style="background:${r.color};">${s}</span>`).join('')}</div>` : '';
+
+  const cards = sops.length ? sops.map((sop, i) => {
+    const op = OP.has(aid + '_' + i);
+    const bc = sop.s === 'done' ? 'b-done' : sop.s === 'wip' ? 'b-wip' : 'b-todo';
+    const bl = sop.s === 'done' ? (EN ? 'Done' : '已完成') : sop.s === 'wip' ? (EN ? 'In progress' : '进行中') : (EN ? 'To do' : '待处理');
+    const ckD = (sop.cl || []).filter((_, ci) => ckg(aid, sop.id, ci)).length;
+    const tasks = sop.tasks || [];
+    const notes = sop.notes || [];
+
+    const ckH = (sop.cl && sop.cl.length) ? `
+      <div class="bl">${EN ? 'Checklist' : '操作清单'} ${hlp(EN ? 'Standard steps for this SOP. Tick each as you complete it.' : '标准操作规范，逐项勾选代表完成。')}</div>
+      <div class="ck-list">${sop.cl.map((c, ci) => {
+        const ck = ckg(aid, sop.id, ci);
+        return `<div class="ck-it"><div class="ckb ${ck ? 'on' : ''}" onclick="tCk('${aid}','${sop.id}',${ci})">${ck ? '✓' : ''}</div><span style="${ck ? 'text-decoration:line-through;opacity:.5;' : ''}">${c}</span></div>`;
+      }).join('')}</div>` : '';
+
+    const delH = (sop.del && sop.del.length) ? `
+      <div class="bl">${EN ? 'Deliverables' : '交付物'} ${hlp(EN ? 'Key documents this step should produce — for client sign-off and BOI evidence.' : '此步骤应产出的关键文件，用于 BOI 合规证明。')}</div>
+      <div class="del-tags">${sop.del.map(d => `<span class="del-tag" style="background:${r.light};color:${r.color};">${d}</span>`).join('')}</div>` : '';
+
+    const tH = `<div style="margin-bottom:10px;">
+      <div class="bl">${EN ? 'Tasks' : '任务'} (${tasks.filter(t => t.done).length}/${tasks.length}) ${hlp(EN ? 'Project-specific action items. Add tasks with an assignee to track who is doing what.' : '当前项目的具体待办，可指定负责人。')}</div>
+      ${tasks.length ? `<div class="task-list">${tasks.map((t, ti) => `
+        <div class="task-it">
+          <div class="tcb ${t.done ? 'on' : ''}" onclick="tTask('${aid}','${sop.id}',${ti})">${t.done ? '✓' : ''}</div>
+          <div class="ttxt ${t.done ? 'done' : ''}">${t.text}</div>
+          ${t.owner ? `<span class="towner">${t.owner}</span>` : ''}
+          <span class="dico" onclick="dTask('${aid}','${sop.id}',${ti})">✕</span>
+        </div>`).join('')}</div>` : `<div style="font-size:11px;color:var(--subtle);margin-bottom:5px;">${EN ? 'No tasks yet.' : '暂无任务。'}</div>`}
+      <div class="add-row">
+        <input id="ti_${sop.id}" placeholder="${EN ? 'Add task...' : '添加任务...'}" />
+        <select id="to_${sop.id}"><option value="">${EN ? 'Assign...' : '指派给...'}</option>${(r.members || []).map(m => `<option value="${m}">${m}</option>`).join('')}</select>
+        <button id="abtn_${sop.id}">${EN ? 'Add' : '添加'}</button>
+      </div>
+    </div>`;
+
+    const nH = `<div style="margin-bottom:10px;">
+      <div class="bl">${EN ? 'Notes' : '备注'} (${notes.length}) ${hlp(EN ? 'Discussion records and decision logs for BOI audit trail.' : '讨论记录和决策备注，BOI 审计证据链。')}</div>
+      ${notes.length ? `<div class="note-list">${notes.map((n, ni) => `
+        <div class="note-it">
+          <div style="flex:1;"><div>${n.text}</div><div class="note-meta">${n.w} · ${n.t}</div></div>
+          <span class="dico" onclick="dNote('${aid}','${sop.id}',${ni})">✕</span>
+        </div>`).join('')}</div>` : `<div style="font-size:11px;color:var(--subtle);margin-bottom:5px;">${EN ? 'No notes yet.' : '暂无备注。'}</div>`}
+      <div class="add-row">
+        <textarea id="ni_${sop.id}" placeholder="${EN ? 'Add a note or comment...' : '添加备注或评论...'}"></textarea>
+        <button id="nbtn_${sop.id}">${EN ? 'Add' : '添加'}</button>
+      </div>
+    </div>`;
+
+    const acts = `<div class="card-acts">
+      <button class="ca" style="${sop.s === 'done' ? 'background:' + r.color + ';color:#fff;border-color:' + r.color + ';' : ''}" onclick="setSt('${aid}','${sop.id}','done')">✓ ${EN ? 'Done' : '已完成'}</button>
+      <button class="ca" style="${sop.s === 'wip' ? 'background:var(--amber);color:#fff;border-color:var(--amber);' : ''}" onclick="setSt('${aid}','${sop.id}','wip')">${EN ? 'In progress' : '进行中'}</button>
+      <button class="ca" onclick="setSt('${aid}','${sop.id}','todo')">${EN ? 'Reset' : '重置'}</button>
+      <button class="ca" onclick="oEdit('${aid}',${i})" style="margin-left:auto;">✏ ${EN ? 'Edit' : '编辑'}</button>
+      <button class="ca red" onclick="dSop('${aid}','${sop.id}')">🗑 ${EN ? 'Delete' : '删除'}</button>
+    </div>`;
+
+    const ehb = `<button class="ehb" onclick="event.stopPropagation();oEdit('${aid}',${i})">✏</button>`;
+
+    return `<div class="card">
+      <div class="ch" onclick="tCard('${aid}',${i})">
+        <div class="sn" style="background:${r.color};">${i + 1}</div>
+        <div class="si">
+          <div class="st2">${sop.t}</div>
+          <div class="sw">${sop.w || ''} · ${sop.sec} · ${ckD}/${(sop.cl || []).length} ck · ${tasks.filter(t => t.done).length}/${tasks.length} tasks</div>
+        </div>
+        <div class="sr">${ehb}<span class="badge ${bc}">${bl}</span><span class="chev ${op ? 'op' : ''}">▶</span></div>
+      </div>
+      <div class="cb ${op ? 'op' : ''}">
+        <div class="bl">Overview</div>
+        <div class="bt">${sop.desc || ''}</div>
+        ${ckH}${delH}${tH}${nH}${acts}
+      </div>
+    </div>`;
+  }).join('') : `<div class="empty">${EN ? 'No SOP steps yet. Click "+ Add SOP Step" to get started.' : '暂无 SOP 步骤。点击"+ 新增 SOP 步骤"开始创建。'}</div>`;
+
+  document.getElementById('mn').innerHTML = rh + tb + stats + pb + act + pain + stabs + `<div class="cards">${cards}</div>`;
+}
+
+function tCard(r, i) { const k = r + '_' + i; OP.has(k) ? OP.delete(k) : OP.add(k); rMN(r); }
+function tCk(r, s, c) { cks(r, s, c, !ckg(r, s, c)); alog('Updated checklist'); rAll(r); }
+function setSt(r, s, st) { const d = gs(r); const sop = d.find(x => x.id === s); if (sop) { sop.s = st; ss2(r, d); alog('Marked "' + sop.t.substring(0, 22) + '..." as ' + st); } rAll(r); }
+function tTask(r, s, ti) { const d = gs(r); const sop = d.find(x => x.id === s); if (sop && sop.tasks[ti]) { sop.tasks[ti].done = !sop.tasks[ti].done; ss2(r, d); alog('Updated task'); } rAll(r); }
+function aTask(r, s) { const inp = document.getElementById('ti_' + s); const own = document.getElementById('to_' + s); if (!inp || !inp.value.trim()) return; const d = gs(r); const sop = d.find(x => x.id === s); if (sop) { if (!sop.tasks) sop.tasks = []; sop.tasks.push({ text: inp.value.trim(), owner: own ? own.value : '', done: false, w: CUR_ROLE, t: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) }); ss2(r, d); alog('Added task: "' + inp.value.trim() + '"'); inp.value = ''; } rAll(r); }
+function dTask(r, s, ti) { const d = gs(r); const sop = d.find(x => x.id === s); if (sop && confirm(LANG === 'en' ? 'Delete this task?' : '确认删除此任务？')) { sop.tasks.splice(ti, 1); ss2(r, d); alog('Deleted a task'); } rAll(r); }
+function aNote(r, s) { const ta = document.getElementById('ni_' + s); if (!ta || !ta.value.trim()) return; const d = gs(r); const sop = d.find(x => x.id === s); if (sop) { if (!sop.notes) sop.notes = []; sop.notes.push({ text: ta.value.trim(), w: CUR_ROLE, t: new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) }); ss2(r, d); alog('Added note'); ta.value = ''; } rAll(r); }
+function dNote(r, s, ni) { const d = gs(r); const sop = d.find(x => x.id === s); if (sop && confirm(LANG === 'en' ? 'Delete this note?' : '确认删除此备注？')) { sop.notes.splice(ni, 1); ss2(r, d); alog('Deleted a note'); } rAll(r); }
+function dSop(r, s) { if (!confirm(LANG === 'en' ? 'Delete this SOP step? Cannot be undone.' : '确认删除此 SOP 步骤？删除后无法恢复。')) return; const d = gs(r); const i = d.findIndex(x => x.id === s); if (i > -1) { alog('Deleted: "' + d[i].t.substring(0, 22) + '"'); d.splice(i, 1); ss2(r, d); } OP.clear(); rAll(r); }
+function togAct(r) { const v = localStorage.getItem('aria_act') !== '0'; localStorage.setItem('aria_act', v ? '0' : '1'); rMN(r); }
+function clrLog(r) { if (!confirm(LANG === 'en' ? 'Clear all activity log?' : '确认清空所有操作记录？')) return; localStorage.removeItem('aria_log'); alog(LANG === 'en' ? 'Activity log cleared' : '操作记录已清空'); rAll(r); }
+function oAdd(r) { MR = r; ME = null; const s = gs(r); const secs = [...new Set(s.map(x => x.sec))]; document.getElementById('smt').textContent = LANG === 'en' ? 'Add SOP Step' : '新增 SOP 步骤'; ['mT','mW','mD','mDl'].forEach(id => document.getElementById(id).value = ''); document.getElementById('mC').value = ''; document.getElementById('mS').innerHTML = secs.map(s => `<option value="${s}">${s}</option>`).join(''); document.getElementById('sm').classList.add('show'); }
+function oEdit(r, i) { MR = r; const s = gs(r); const sop = s[i]; ME = sop.id; const secs = [...new Set(s.map(x => x.sec))]; document.getElementById('smt').textContent = LANG === 'en' ? 'Edit SOP Step' : '编辑 SOP 步骤'; document.getElementById('mT').value = sop.t; document.getElementById('mW').value = sop.w || ''; document.getElementById('mD').value = sop.desc || ''; document.getElementById('mC').value = (sop.cl || []).join('
+'); document.getElementById('mDl').value = (sop.del || []).join(', '); document.getElementById('mS').innerHTML = secs.map(s => `<option value="${s}" ${s === sop.sec ? 'selected' : ''}>${s}</option>`).join(''); document.getElementById('sm').classList.add('show'); }
+function cSM() { document.getElementById('sm').classList.remove('show'); MR = null; ME = null; }
+function saveSM() { const title = document.getElementById('mT').value.trim(); if (!title) { alert('Step title is required'); return; } const s = gs(MR); const sec = document.getElementById('mS').value || 'General'; const who = document.getElementById('mW').value.trim(); const desc = document.getElementById('mD').value.trim(); const cl = document.getElementById('mC').value.split('
+').map(x => x.trim()).filter(Boolean); const del = document.getElementById('mDl').value.split(',').map(x => x.trim()).filter(Boolean); if (ME) { const sop = s.find(x => x.id === ME); if (sop) { sop.t = title; sop.sec = sec; sop.w = who; sop.desc = desc; sop.cl = cl; sop.del = del; alog('Edited: "' + title.substring(0, 22) + '"'); } } else { s.push({ id: MR + '_' + Date.now(), sec, t: title, w: who, s: 'todo', desc, cl, del, tasks: [], notes: [] }); alog('Added: "' + title.substring(0, 22) + '"'); } ss2(MR, s); cSM(); rAll(MR); }
+function oSec(r) { MR = r; document.getElementById('secn').value = ''; document.getElementById('secm').classList.add('show'); }
+function saveSec() { const n = document.getElementById('secn').value.trim(); if (!n) return; const s = gs(MR); s.push({ id: MR + '_' + Date.now(), sec: n, t: 'New step — click ✏ to update', w: '', s: 'todo', desc: 'Add description.', cl: [], del: [], tasks: [], notes: [] }); ss2(MR, s); alog('Added section: "' + n + '"'); document.getElementById('secm').classList.remove('show'); rAll(MR); }
+
+document.getElementById('sm').addEventListener('click', function(e) { if (e.target === this) cSM(); });
+document.getElementById('secm').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
+
+// Event delegation for add task/note buttons and Enter key
+document.addEventListener('click', function(e) {
+  if (!e.target || !e.target.id) return;
+  const id = e.target.id;
+  if (id.startsWith('abtn_')) { aTask(CUR_AID, id.replace('abtn_', '')); }
+  if (id.startsWith('nbtn_')) { aNote(CUR_AID, id.replace('nbtn_', '')); }
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && e.target && e.target.id && e.target.id.startsWith('ti_')) {
+    aTask(CUR_AID, e.target.id.replace('ti_', ''));
+  }
+});
+
+// Init
+rAll('pm');
+apLS();
 </script>
 </body>
 </html>
